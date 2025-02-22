@@ -1,4 +1,4 @@
-export function passwordChecker(password = "") {
+export function passwordChecker(password:string) {
   if (password.length < 8){
     return "invalid password";
   }
