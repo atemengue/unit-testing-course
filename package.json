@@ -2,6 +2,7 @@
   "name": "labs-01",
   "version": "1.0.0",
   "main": "index.js",
+  "module": "",
   "scripts": {
     "test": "vitest test",
     "test:watch": "vitest --watch",
