@@ -6,7 +6,7 @@ describe('Password Checker Suite Test', () => {
 
   let SUT : PasswordChecker;
 
-  beforeAll(() => {
+  beforeEach(() => {
     SUT = new PasswordChecker();
   })
 
@@ -43,7 +43,7 @@ describe('Password Checker Suite Test', () => {
   });
 
   it("Should return false if password has not number", () => {
-    const password = "aADASDASDASDadasd";
+    const password = "abcdABCD";
     const expect_result = SUT.checkPassword(password);
     expect(expect_result).toBe(false);
   })
