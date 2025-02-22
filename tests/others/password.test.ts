@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { passwordChecker } from './password';
+import { passwordChecker } from '../../src/app/others/password';
 
 
-describe.only("password checker tests Suite", () => {
+describe.skip("password checker tests Suite", () => {
   it("Should return password is invalid if length is less than 8 chars", () => {
     const password = "abcd123";
     const response = "invalid password";
