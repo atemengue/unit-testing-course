@@ -1,7 +1,18 @@
+
 import { describe, expect, it } from 'vitest';
 import { sum } from '../../src/app/others/other';
-
-
+/**
+ * Test suite for the sum function.
+ *
+ * Requirements:
+ * - Should return 0 if the array is empty.
+ * - Should return the first element if the array length is 1.
+ * - Should return the sum of elements if the array length is greater than 1.
+ * - Should return the sum of negative numbers.
+ * - Should return 0 if all elements are 0.
+ * - Should return the sum of decimal numbers.
+ * - Should return the sum of large numbers.
+ */
 
 describe.skip('Sum tests suite', () => {
 
