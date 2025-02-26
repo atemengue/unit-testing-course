@@ -25,7 +25,7 @@ export class PasswordChecker {
 
     result.isValid = this.checkForLength(password, reasons) 
     && this.checkForNumber(password, reasons)
-    && this.checkLoweCase(password, reasons)
+    && this.checkLowerCase(password, reasons)
     && this.checkUpperCase(password, reasons)
     
     return result;
@@ -51,19 +51,26 @@ export class PasswordChecker {
     }
     return true;
   }
-
-  private checkLoweCase(password: string, reasons: string[]) {
-    if(password === password.toUpperCase()){
+  private checkLowerCase(password: string, reasons: string[]) {
+    const hasLowerCase = /[a-z]/;
+    if (!hasLowerCase.test(password)) {
       reasons.push(PasswordErros.NO_LOWERCASE);
       return false;
     }
     return true;
   }
-  private checkUpperCase(password: string, reasons: string[]){
-    if(password === password.toLowerCase()){
+  
+  private checkUpperCase(password: string, reasons: string[]) {
+    const hasUpperCase = /[A-Z]/;
+    if (!hasUpperCase.test(password)) {
       reasons.push(PasswordErros.NO_UPPER_CASE);
-      return false
+      return false;
     }
     return true;
   }
 }
+
+
+
+
+// orderService.js (SUT)
