@@ -10,7 +10,8 @@
     "outDir": "dist",
     "rootDir": ".",
     "types": ["vitest/globals"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true
   },
   "include": ["src", "tests"],
   "exclude": ["node_modules", "dist"]

@@ -34,7 +34,7 @@ describe("BasketItem suites tests", () => {
       expect(price).toBe(25000);
     });
 
-    it("Sould return good price of basket", () => {
+    it("Should return good price of basket", () => {
       
       const mockedEventClass = {
         id: 1,
