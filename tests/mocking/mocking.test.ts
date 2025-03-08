@@ -26,10 +26,6 @@ describe("Puschare test suites", () => {
   });
   
   
-  
-  
-
-  
   afterEach(() =>{ 
     vi.useRealTimers();
   });
