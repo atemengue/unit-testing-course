@@ -9,13 +9,14 @@ class EmailGateway implements IEmailGateway {
 }
 
 class Product {
-  id: number;
-  name: string;
+  id: number | undefined;
+  name: string | undefined;
   static Shampoo: Product;
+
 }
 
 class Customer {
-  email: string;
+  email!: string;
 
   purchase(store: IStore, product: Product, quantity: number): boolean {
       if (!store.hasEnoughInventory(product, quantity)) {
@@ -36,7 +37,7 @@ interface IStore {
 
 class Store implements IStore {
   private inventory: Map<Product, number> = new Map<Product, number>();
-  id: number;
+  id: number | undefined;
 
   hasEnoughInventory(product: Product, quantity: number): boolean {
       return this.getInventory(product) >= quantity;
@@ -80,6 +81,7 @@ class CustomerController {
   private emailGateway: IEmailGateway;
 
   constructor(emailGateway: IEmailGateway) {
+    
       this.emailGateway = emailGateway;
       this.customerRepository = new CustomerRepository();
       this.productRepository = new ProductRepository();
@@ -93,7 +95,11 @@ class CustomerController {
       const isSuccess = customer.purchase(this.mainStore, product, quantity);
 
       if (isSuccess) {
-          this.emailGateway.sendReceipt(customer.email, product.name, quantity);
+          if (product.name) {
+              this.emailGateway.sendReceipt(customer.email, product.name, quantity);
+          } else {
+              throw new Error("Product name is undefined");
+          }
       }
 
       return isSuccess;
