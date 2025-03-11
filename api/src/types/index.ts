@@ -1,4 +1,9 @@
 import { Document, Types } from 'mongoose';
+export interface ICategory {
+  name: string;
+  description: string;
+  imageUrl: string;
+}
 
 export interface IProduct extends Document {
   name: string,
