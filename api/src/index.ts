@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import categoryRoutes from './routes/category.routes';
+import productRoutes from './routes/product.routes';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use(categoryRoutes);
+app.use(productRoutes);
 
 app.listen(port, () => {
   console.log(`[Server]: Server is running at http://localhost:${port}`);

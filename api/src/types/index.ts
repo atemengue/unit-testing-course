@@ -51,3 +51,11 @@ export interface IInventory extends Document {
   quantity: number;
   productId: Types.ObjectId
 }
+
+export interface IProductService {
+  createProduct(product: IProduct): Promise<IProduct>;
+  readProductById(id: string): Promise<IProduct | null>;
+  readAllProduct(): Promise<IProduct[]>;
+  updateProduct(id: string, data: IProduct): Promise<IProduct | null>;
+  deleteProduct(id: string): Promise<IProduct | null>;
+}
