@@ -16,7 +16,6 @@ import categoryService from '../services/category.service';
 }
 
 const createCategory = async(req: Request, res: Response) =>{
-  console.log(req, 'reqiest')
   try {
     const category = await categoryService.createCategory(req.body);
     res.status(201).send(category);
