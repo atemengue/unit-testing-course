@@ -1,4 +1,5 @@
 import { Document, Types } from 'mongoose';
+import { CheckInterface, IResult } from '../services/inventory.service';
 export interface ICategory {
   name: string;
   description: string;
@@ -6,6 +7,7 @@ export interface ICategory {
 }
 
 export interface IProduct extends Document {
+  id: Types.ObjectId,
   name: string,
   description?: string,
   price: number,
@@ -47,9 +49,9 @@ export enum OrderStatus {
   Completed = 'completed'
 }
 
-export interface IInventory extends Document {
+export interface IInventory {
+  productId: Types.ObjectId;
   quantity: number;
-  productId: Types.ObjectId
 }
 
 export interface IProductService {
@@ -58,4 +60,10 @@ export interface IProductService {
   readAllProduct(): Promise<IProduct[]>;
   updateProduct(id: string, data: IProduct): Promise<IProduct | null>;
   deleteProduct(id: string): Promise<IProduct | null>;
+}
+
+export interface IInventoryService {
+  checkInventory(id: string): Promise<CheckInterface| undefined >
+  createInventory(inventory: IInventory): Promise<IResult>
+  updateInventory(id: string, quantity: number): Promise<IResult>
 }

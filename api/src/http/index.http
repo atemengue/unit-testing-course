@@ -4,3 +4,39 @@ GET http://localhost:3000/api/categories
 
 ### GET Products
 GET  http://localhost:3000/api/products
+
+
+###CATEGORY CREATE
+
+POST http://localhost:3000/api/category HTTP/1.1
+Content-Type: application/json
+
+{
+  "name" : "category1",
+  "description": "mini description",
+  "imageUrl": "url"
+}
+
+
+### CATEGORY CREATE
+POST http://localhost:3000/api/category HTTP/1.1
+Content-Type: application/json
+
+{
+  "name" : "category2",
+  "description": "another description",
+  "imageUrl": "another-url"
+}
+
+### PRODUCT CREATE
+POST http://localhost:3000/api/product HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "product1",
+  "description": "product description",
+  "price": 50000,
+  "price": 100,
+  "stock": 50,
+  "categoryId": "67d1820b3be3c2c03e1c626b"
+}

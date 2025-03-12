@@ -1,20 +1,28 @@
 import { Request, Response } from 'express';
-import { IProductService } from '../types';
+import { Types } from 'mongoose';
+import { IInventory, IInventoryService, IProductService } from '../types';
 
 class ProductController {
 
   private readonly productService: IProductService;
+  private readonly inventoryService: IInventoryService
   
-  constructor(productService: IProductService) {
+  constructor(productService: IProductService, inventoryService: IInventoryService) {
     this.productService = productService;
+    this.inventoryService = inventoryService;
   }
 
   create =  async (req: Request, res: Response)=> {
     const data = req.body;
     try {
       const product = await this.productService.createProduct(data);
+      
+      const inventoryData: IInventory = {
+        productId: product._id as Types.ObjectId,
+        quantity: product.stock,
+      }
       if (product) {
-        // update inventory
+        await this.inventoryService.createInventory(inventoryData)
         res.status(201).send(product);
       }
     } catch (error) {

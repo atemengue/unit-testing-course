@@ -3,10 +3,15 @@ import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import categoryRoutes from './routes/category.routes';
 import productRoutes from './routes/product.routes';
+import bodyParser = require('body-parser');
+
+
 
 dotenv.config();
 
 const app: Express = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT || 3000;
 
 const start = async () => {
