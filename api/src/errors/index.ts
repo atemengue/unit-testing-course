@@ -57,10 +57,19 @@ class TicketAvailabilityError extends Error {
   }
 }
 
+class ParamsError extends  Error {
+  status: number;
+  constructor(message?:string){
+    super(message || 'Invalid Params');
+    this.name = 'ParamsError';
+    this.status = 404;
+  }
+}
+
 export {
   BadGatewayError,
   BadRequestError,
   ForbiddenError,
-  NotFoundError, TicketAvailabilityError, UnauthorizedError
+  NotFoundError, ParamsError, TicketAvailabilityError, UnauthorizedError
 };
 
