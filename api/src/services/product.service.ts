@@ -9,11 +9,11 @@ class ProductService implements IProductService{
     return await Product.create(product);
   }
 
-  async readProductById(id: string): Promise<IProduct | null> {
+  async getById(id: string): Promise<IProduct | null> {
     return await Product.findById(id);
   }
 
-  async readAllProduct() {
+  async lists() {
     return await Product.find();
   }
 

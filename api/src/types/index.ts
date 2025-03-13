@@ -56,8 +56,8 @@ export interface IInventory {
 
 export interface IProductService {
   createProduct(product: IProduct): Promise<IProduct>;
-  readProductById(id: string): Promise<IProduct | null>;
-  readAllProduct(): Promise<IProduct[]>;
+  getById(id: string): Promise<IProduct | null>;
+  lists(): Promise<IProduct[]>;
   updateProduct(id: string, data: IProduct): Promise<IProduct | null>;
   deleteProduct(id: string): Promise<IProduct | null>;
 }

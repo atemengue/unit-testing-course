@@ -3,7 +3,7 @@ import { IInventory, IInventoryService, IProduct } from '../types';
 
 export interface CheckInterface {
   isAvailable: boolean,
-  availableQuantity?: number
+  quantity?: number
   message?: string
 }
 
@@ -27,13 +27,13 @@ class InventoryService  implements IInventoryService {
       if(inventory === null) {
         return {
           isAvailable: false,
-          availableQuantity: 0,
+          quantity: 0,
           message: "Product Not Found"
         }
       } else {
         return {
           isAvailable: true,
-          availableQuantity: inventory.quantity
+          quantity: inventory.quantity
         }
       }
     } catch (error) {

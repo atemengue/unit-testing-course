@@ -30,10 +30,10 @@ class ProductController {
     }
   }
 
-   readById = async (req: Request, res: Response) => {
+   getById = async (req: Request, res: Response) => {
     const id = req.params.id
     try {
-      const product = await this.productService.readProductById(id);
+      const product = await this.productService.getById(id);
       if(!product) {
         res.status(204).send(product)
       } else {
@@ -44,9 +44,9 @@ class ProductController {
     }
   }
 
-  read =  async (_req: Request, res: Response) => {
+  lists =  async (_req: Request, res: Response) => {
     try {
-    const products = await this.productService.readAllProduct();
+    const products = await this.productService.lists();
     if (products.length === 0) {
        res.status(204).send(products);
     } else {

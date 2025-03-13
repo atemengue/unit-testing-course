@@ -11,8 +11,8 @@ const controller: ProductController = new ProductController(productService, inve
 
 
 router.post("/api/product", controller.create);
-router.get("/api/products", controller.read);
-router.get("/api/product/:id", controller.readById);
+router.get("/api/products", controller.lists);
+router.get("/api/product/:id", controller.getById);
 router.put("/api/product/:id", controller.update);
 router.delete("/api/product/:id", controller.delete);
 
