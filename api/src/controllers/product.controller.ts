@@ -18,7 +18,7 @@ class ProductController {
       const product = await this.productService.createProduct(data);
       
       const inventoryData: IInventory = {
-        productId: product._id as Types.ObjectId,
+        productId: product.id as Types.ObjectId,
         quantity: product.stock,
       }
       if (product) {

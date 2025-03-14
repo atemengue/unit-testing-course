@@ -7,13 +7,13 @@ export interface ICategory {
   imageUrl: string;
 }
 
-export interface IProduct extends Document {
+export interface IProduct {
   id: Types.ObjectId,
   name: string,
   description?: string,
   price: number,
   stock: number,
-  imageUrl: number,
+  imageUrl: string,
   categoryId: Types.ObjectId,
 }
 

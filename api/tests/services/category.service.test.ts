@@ -10,11 +10,14 @@ vi.mock("../../src/models/category.ts", () => ({
   }
 }));
 
-afterEach(() => {
-  vi.resetAllMocks();
-})
 
 describe("Category Services", () =>{
+  
+  afterEach(() => {
+    vi.resetAllMocks();
+  
+  })
+  
   describe("LisCategories", () => {
 
     it("should return all categories", async () => {
