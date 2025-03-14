@@ -1,5 +1,6 @@
 import { Document, Types } from 'mongoose';
 import { CheckInterface, IResult } from '../services/inventory.service';
+
 export interface ICategory {
   name: string;
   description: string;

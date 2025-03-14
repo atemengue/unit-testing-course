@@ -40,3 +40,14 @@ Content-Type: application/json
   "stock": 50,
   "categoryId": "67d1820b3be3c2c03e1c626b"
 }
+
+
+### USER SIGNUP
+POST http://localhost:3000/api/signup HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "user1rtert",
+  "email": "user1@example.com",
+  "password": "passwoADrd123"
+}
