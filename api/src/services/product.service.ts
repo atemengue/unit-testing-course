@@ -14,7 +14,7 @@ class ProductService implements IProductService{
   }
 
   async lists() {
-    return await Product.find();
+    return await Product.find().exec();
   }
 
   async updateProduct(id: string, data: IProduct) {

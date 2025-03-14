@@ -6,7 +6,7 @@ const ProductSchema: Schema = new Schema<IProduct>({
   description: String,
   price: Number,
   stock: Number,
-  imageUrl: Number,
+  imageUrl: String,
   categoryId: {
     type: Schema.Types.ObjectId, ref: "Category",
     required: true
