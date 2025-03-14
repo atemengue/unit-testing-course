@@ -1,43 +1,13 @@
 import { genSalt, hash } from 'bcrypt';
 import { Request } from 'express';
 import JWT from 'jsonwebtoken';
-import { ParamError } from '../errors';
+import { ParamsError } from '../errors';
 import User from '../models/user';
 import { verify } from '../utils/verify';
 import { HttpResponse } from './../protocols/http';
 
 const secret = '1234';
 class SignUpController {
-  async signUp(req: Request, res: Response): Promise<Response>{
-    try {
-      const name = req.body.name;
-      const email = req.body.email;
-      const password = req.body.password;
-  
-      const isValid = verify(name, password, email);
-      if (!isValid) {  
-        throw new ParamsError("") 
-      }
-        // hashed password
-  
-        const salt  = await genSalt(10);
-        const hashedPassword = await hash(password, salt);
-        
-        // create user;
-        await User.create({
-          email: email,
-          name: name,
-          password: hashedPassword
-        });
-  
-        // create accessToken
-        const accessToken = jwt.sign({ email, name}, secret);
-
-        return res.status(200).json({ accessToken });
-
-    } catch (error) {
-      return res.status(500).json({ error: error });
-
   async handle(req: Request): Promise<HttpResponse>{
 
     const name = req.body.name;
@@ -49,7 +19,7 @@ class SignUpController {
       const isValid = verify(name, password, email);
 
     if(!isValid) {
-      throw new ParamError()
+      throw new ParamsError()
     }
 
     const salt  = await genSalt(10);

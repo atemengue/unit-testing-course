@@ -38,7 +38,7 @@ class NotFoundError extends Error {
   }
 }
 
-class ParamError extends Error {
+class ParamsError extends Error {
   status: number;
 
   constructor(message?: string) {
@@ -57,19 +57,12 @@ class UnauthorizedError extends Error {
   }
 }
 
-class TicketAvailabilityError extends Error {
-  status: number;
-  constructor(message?: string) {
-    super(message || 'The requested ticket quantity is not available');
-    this.name = 'TicketAvailabilityError';
-    this.status = 404;
-  }
-}
-
 export {
   BadGatewayError,
   BadRequestError,
   ForbiddenError,
-  NotFoundError, TicketAvailabilityError, UnauthorizedError
+  NotFoundError,
+  ParamsError,
+  UnauthorizedError
 };
 
