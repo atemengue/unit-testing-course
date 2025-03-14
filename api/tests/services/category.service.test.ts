@@ -1,89 +1,107 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import Category from '../../src/models/category';
 import categoryService from '../../src/services/category.service';
 import { ICategory } from '../../src/types';
 
-vi.mock("../../src/models/category.ts");
+vi.mock("../../src/models/category.ts", () => ({
+  default: {
+    find: vi.fn(),
+    create: vi.fn()
+  }
+}));
 
-describe("Category Services", () => {
+afterEach(() => {
+  vi.resetAllMocks();
+})
 
-  describe("ListCategories", () => {
+describe("Category Services", () =>{
+  describe("LisCategories", () => {
 
-    it("Should return all categories", async () => {
+    it("should return all categories", async () => {
 
-      const mockCategories: ICategory[] = [
-        { name: 'Category 1', description: "", imageUrl: "" },
-        { name: 'Category 2', description: "", imageUrl: "" }
+      //Arrange
+      const mockCategories : ICategory[] = [
+        { name: 'Expresso', description: 'strong coffee', imageUrl: 'expresso.jpg'}
       ];
 
-      (Category.find as any).mockReturnValue({
+      // spy creation
+      vi.spyOn(Category, 'find').mockReturnValue({
         exec: vi.fn().mockResolvedValue(mockCategories)
-      });
-    
+      } as any)
+
       // Act
-        const result = await categoryService.listCategories();
-      
-        // Assert
+      const categories = await categoryService.listCategories();
+    
+      // Assert
+      expect(Category.find).toHaveBeenCalled();
+      expect(categories).toEqual(mockCategories);
 
-        expect(Category.find).toHaveBeenCalledTimes(1);
-        expect(result).toEqual(mockCategories);
-        expect(result).toHaveLength(2);
-    })
-
-  });
-
-
-  describe("createCategory", async () => {
-
+    });
     it("should create category", async () => {
+      
       // Arrange
       const newCategory: ICategory = { name: 'Category 3', description: "", imageUrl: "" };
-      
-      (Category.create as any).mockResolvedValue(newCategory);
-      
+
+      vi.spyOn(Category, 'create').mockImplementation((newCategory) => Promise.resolve(newCategory) as any)
+
       // Act
       const result = await categoryService.createCategory(newCategory);
-      
+
       // Assert
       expect(Category.create).toHaveBeenCalledTimes(1);
       expect(result).toEqual(newCategory);
       expect(Category.create).toHaveBeenCalledWith(newCategory);
-    })
+
+    });
+
   })
 })
 
+// describe("Category Services", () => {
 
+//   describe("ListCategories", () => {
 
+//     it("Should return all categories", async () => {
 
-//vi.mock('../../src/models/category');
-
-// describe('Category Service', () => {
-//   describe('listCategories', () => {
-//     it('should return a list of categories', async () => {
 //       const mockCategories: ICategory[] = [
-//         { name: 'Category 1',description: "", imageUrl: "" },
+//         { name: 'Category 1', description: "", imageUrl: "" },
 //         { name: 'Category 2', description: "", imageUrl: "" }
 //       ];
 
-//       (Category.find as vi.Mock).mockResolvedValue(mockCategories);
+//       (Category.find as any).mockReturnValue({
+//         exec: vi.fn().mockResolvedValue(mockCategories)
+//       });
+    
+//       // Act
+//         const result = await categoryService.listCategories();
+      
+//         // Assert
 
-//       const categories = await categoryService.listCategories();
+//         expect(Category.find).toHaveBeenCalledTimes(1);
+//         expect(result).toEqual(mockCategories);
+//         expect(result).toHaveLength(2);
+//     })
 
-//       expect(categories).toEqual(mockCategories);
-//       expect(Category.find).toHaveBeenCalledTimes(1);
-//     });
 //   });
 
-//   describe('createCategory', () => {
-//     it('should create a new category', async () => {
-//       const newCategory: ICategory = { id: '3', name: 'Category 3' };
-//       (Category.create as vi.Mock).mockResolvedValue(newCategory);
 
-//       const createdCategory = await categoryService.createCategory(newCategory);
+//   describe("createCategory", async () => {
 
-//       expect(createdCategory).toEqual(newCategory);
-//       expect(Category.create).toHaveBeenCalledWith(newCategory);
+//     it("should create category", async () => {
+//       // Arrange
+//       const newCategory: ICategory = { name: 'Category 3', description: "", imageUrl: "" };
+      
+//       (Category.create as any).mockResolvedValue(newCategory);
+      
+//       // Act
+//       const result = await categoryService.createCategory(newCategory);
+      
+//       // Assert
 //       expect(Category.create).toHaveBeenCalledTimes(1);
-//     });
-//   });
-// });
+//       expect(result).toEqual(newCategory);
+//       expect(Category.create).toHaveBeenCalledWith(newCategory);
+//     })
+//   })
+// })
+
+
