@@ -3,7 +3,7 @@ import { ICategory } from '../types';
 
 
 async function listCategories(): Promise<ICategory[]> {
-  return await Category.find();
+  return await Category.find().exec();
 }
 
 async function createCategory(category: ICategory):Promise<ICategory>{
