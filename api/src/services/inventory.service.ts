@@ -63,10 +63,7 @@ class InventoryService  implements IInventoryService {
       }
 
     } catch (error) {
-      return {
-        message: "Inventory!",
-        isUpdated: false
-      }
+      throw new Error(`${error}`);
     }
   }
 }

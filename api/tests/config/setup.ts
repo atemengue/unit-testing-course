@@ -30,7 +30,7 @@ const seedDatabase = async () => {
     categoryId: category1.id,
   });
 
-  console.log('Database seeded successfully!');
+  // console.log('Database seeded successfully!');
 };
 
 /**
@@ -44,7 +44,7 @@ export const setupTestDB = async () => {
   // Initialize Mongoose
   await mongoose.connect(uri);
 
-  console.log('In-memory MongoDB server started and Mongoose connected.');
+  // console.log('In-memory MongoDB server started and Mongoose connected.');
 
   // Seed the database
   await seedDatabase();
@@ -64,12 +64,12 @@ export const teardownTestDB = async () => {
   // Clear models
   if (mongoose) {
     await mongoose.disconnect();
-    console.log('Mongoose disconnected.');
+    // console.log('Mongoose disconnected.');
   }
 
   if (mongod) {
     await mongod.stop();
-    console.log('In-memory MongoDB server stopped.');
+    // console.log('In-memory MongoDB server stopped.');
   }
 };
 
