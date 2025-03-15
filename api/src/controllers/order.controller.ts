@@ -21,6 +21,9 @@ async function createOrder(req: Request, res: Response) {
 
     // step 04 Update Inventory
     await inventoryService.updateInventory(productId, -quantity);
+
+    res.status(200).send(order);
+    
   } catch (error) {
     res.status(500).send(error);
   }

@@ -16,7 +16,6 @@ import Product from '../../src/models/product';
 import ProductService from '../../src/services/product.service';
 import { IProduct } from '../../src/types';
 
-
 // setUp the test Environment
 import { setupTestEnvironment } from '../config/setup';
 
@@ -98,7 +97,6 @@ describe("Product Service Class", () => {
     })
   
   });
-
 
   describe("GetById", () => {
     it("should return a product", async () => {

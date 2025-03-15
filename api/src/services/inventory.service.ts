@@ -2,7 +2,7 @@ import Inventory from '../models/inventory';
 import { IInventory, IInventoryService, IProduct } from '../types';
 
 export interface CheckInterface {
-  isAvailable: boolean,
+  isAvailable?: boolean,
   quantity?: number
   message?: string
 }
@@ -18,7 +18,7 @@ class InventoryService  implements IInventoryService {
 
   constructor(){}
 
-  async checkInventory(id: string): Promise<CheckInterface | undefined> { 
+  async checkInventory(id: string): Promise<CheckInterface> { 
     try {
       const inventory = await Inventory.findOne({
         productId: id
@@ -27,7 +27,6 @@ class InventoryService  implements IInventoryService {
       if(inventory === null) {
         return {
           isAvailable: false,
-          quantity: 0,
           message: "Product Not Found"
         }
       } else {
@@ -37,10 +36,7 @@ class InventoryService  implements IInventoryService {
         }
       }
     } catch (error) {
-      return {
-        isAvailable: false,
-        message: `Error ${error}`
-      }     
+        throw new Error(`${error}`);
     }
   }
 
