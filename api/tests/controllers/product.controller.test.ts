@@ -145,6 +145,72 @@ describe("Product Controller", () => {
       // Check that res.send was called with the error
       expect(res.send).toHaveBeenCalledWith(error);
     });
+  });
+
+
+  describe("GetById", () => {
+
+      const id = 1;
+       const req = {
+        params: { id }
+      }  as unknown as Request
+
+      const res = {
+        status: vi.fn().mockReturnThis(),
+        send: vi.fn()
+      } as unknown as Response
+      
+      const mockProduct = {
+        id: '1',
+        name: 'Test Product',
+        price: 100,
+        stock: 1,
+        description: 'This is a test product',
+        categoryId: "67d1820b3be3c2c03e1c626b"
+      };
+
+
+    it("Should get product by id", async () => {
+      // Arrange
+      const id = 1;
+
+      producServiceMock.getById.mockResolvedValue(mockProduct);
+      // Act
+      await sut.getById(req, res);
+      // Assert
+      expect(producServiceMock.getById).toHaveBeenCalledWith(id);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith(mockProduct);
+    });
+
+    it("Should send not content if produit not exist", async () => {
+
+      // Arrange
+      const id = 1;
+      producServiceMock.getById.mockResolvedValue(null);
+
+      // Act
+      await sut.getById(req, res);
+      expect(producServiceMock.getById).toHaveBeenCalledWith(id);
+      expect(res.status).toHaveBeenCalledWith(204);
+      expect(res.send).toHaveBeenCalledWith(null);
+    });
+
+    it("Sshould return status 500 if an error occurs during get product", async () => {
+
+      // Arrange
+      const id = 1;
+      const error = new Error('Get Product failed');  
+
+      producServiceMock.getById.mockRejectedValue(error);
+
+      // Act
+      await sut.getById(req, res);
+
+      expect(producServiceMock.getById).toHaveBeenCalledWith(id);
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith(error);
+    });
 
   })
 
