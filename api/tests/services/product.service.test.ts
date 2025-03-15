@@ -16,6 +16,12 @@ import Product from '../../src/models/product';
 import ProductService from '../../src/services/product.service';
 import { IProduct } from '../../src/types';
 
+
+// setUp the test Environment
+import { setupTestEnvironment } from '../config/setup';
+
+setupTestEnvironment();
+
 describe("Product Service Class", () => {
 
   let sut: ProductService ;
@@ -28,7 +34,7 @@ describe("Product Service Class", () => {
     vi.resetAllMocks();
   })
 
-  describe("CreateProduct",  async () => {
+  describe("CreateProduct", () => {
     it("Should create new Product", async () => {
       const newProduct : IProduct = {
         id: new Types.ObjectId(),
@@ -91,6 +97,161 @@ describe("Product Service Class", () => {
       expect(result).toHaveLength(2);
     })
   
-  })
+  });
 
+
+  describe("GetById", () => {
+    it("should return a product", async () => {
+      // Arrange
+      const id = "67d3e8c4e2bd8833f0a1b609";
+
+      const mockProduct =  {
+        id: "67d3e8c4e2bd8833f0a1b609",
+        name: "prodcut01",
+        description: "product description",
+        price: 100,
+        stock: 50,
+        categoryId: "67d1820b3be3c2c03e1c626b"
+      };
+
+      // Mock GetById
+      (Product.findById as any ).mockResolvedValueOnce(mockProduct);
+
+      // Act
+      const actual = await sut.getById(id);
+      
+      // Assert
+      expect(actual).toEqual(mockProduct);
+      expect(Product.findById).toHaveBeenCalledWith(id);
+      expect(Product.findById).toHaveBeenCalledTimes(1)
+    });
+
+
+    it("should return null if product is not found", async () => {
+      // Arrange
+      const id = "67d3e8c4e2bd8833f0a1b609";
+  
+      // Mock GetById
+      (Product.findById as any).mockResolvedValueOnce(null);
+  
+      // Act
+      const actual = await sut.getById(id);
+  
+      // Assert
+      expect(actual).toBeNull();
+      expect(Product.findById).toHaveBeenCalledWith(id);
+      expect(Product.findById).toHaveBeenCalledTimes(1);
+    });
+
+    it("should handle null or undefined id", async () => {
+      // Arrange
+      const id = null as unknown as string;
+  
+      // Mock GetById
+      (Product.findById as any).mockResolvedValueOnce(null);
+  
+      // Act
+      const actual = await sut.getById(id);
+  
+      // Assert
+      expect(actual).toBeNull();
+      expect(Product.findById).toHaveBeenCalledWith(id);
+      expect(Product.findById).toHaveBeenCalledTimes(1);
+    });
+  
+  });
+
+  describe('updateProduct', () => {
+    it('should update a product and return the updated product', async () => {
+      // Arrange
+      const id = '67d3e8c4e2bd8833f0a1b609';
+      // use stubMock.
+      const updateDataStub = {
+        name: 'Updated Product',
+        description: 'Updated Description',
+        price: 200,
+        stock: 100,
+      };
+      const updatedProduct = {
+        id,
+        ...updateDataStub,
+      };
+
+      // Mock findByIdAndUpdate
+      (Product.findByIdAndUpdate as any).mockResolvedValueOnce(updatedProduct);
+
+      // Act
+      const result = await sut.updateProduct(id, updateDataStub as any);
+
+      // Assert
+      expect(result).toEqual(updatedProduct);
+      expect(Product.findByIdAndUpdate).toHaveBeenCalledWith(id, updateDataStub, { new: true });
+      expect(Product.findByIdAndUpdate).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return null if the product is not found', async () => {
+      // Arrange
+      const id = 'nonexistent-id';
+
+      const stubDataUpdate: IProduct = {
+        name: 'Updated Product',
+        description: 'Updated Description',
+        price: 200,
+        stock: 100,
+      } as any;
+
+      // Mock findByIdAndUpdate to return null
+      (Product.findByIdAndUpdate as any).mockResolvedValueOnce(null);
+
+      // Act
+      const result = await sut.updateProduct(id, stubDataUpdate);
+
+      // Assert
+      expect(result).toBeNull();
+      expect(Product.findByIdAndUpdate).toHaveBeenCalledWith(id, stubDataUpdate, { new: true });
+      expect(Product.findByIdAndUpdate).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('deleteProduct', () => {
+    it('should delete a product and return null', async () => {
+      // Arrange
+      const id = '67d3e8c4e2bd8833f0a1b609';
+      const deletedProduct = {
+        id,
+        name: 'Deleted Product',
+        description: 'Deleted Description',
+        price: 100,
+        stock: 50,
+        categoryId: '67d1820b3be3c2c03e1c626b',
+      };
+
+      // Mock findByIdAndDelete
+      (Product.findByIdAndDelete as any).mockResolvedValueOnce(deletedProduct);
+
+      // Act
+      const result = await sut.deleteProduct(id);
+
+      // Assert
+      expect(result).toEqual(deletedProduct);
+      expect(Product.findByIdAndDelete).toHaveBeenCalledWith(id);
+      expect(Product.findByIdAndDelete).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return null if the product is not found', async () => {
+      // Arrange
+      const id = 'nonexistent-id';
+
+      // Mock findByIdAndDelete to return null
+      (Product.findByIdAndDelete as any).mockResolvedValueOnce(null);
+
+      // Act
+      const result = await sut.deleteProduct(id);
+
+      // Assert
+      expect(result).toBeNull();
+      expect(Product.findByIdAndDelete).toHaveBeenCalledWith(id);
+      expect(Product.findByIdAndDelete).toHaveBeenCalledTimes(1);
+    });
+  })
 })
