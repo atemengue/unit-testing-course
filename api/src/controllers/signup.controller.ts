@@ -1,6 +1,6 @@
 import { genSalt, hash } from 'bcrypt';
 import { Request } from 'express';
-import JWT from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import { ParamsError } from '../errors';
 import User from '../models/user';
 import { verify } from '../utils/verify';
@@ -25,7 +25,7 @@ class SignUpController {
     const salt  = await genSalt(10);
     const hashedPassword = await hash(password, salt);    
     
-    const accessToken = JWT.sign({ email, name}, secret);
+    const accessToken = sign({ email, name}, secret);
     
     await User.create({
         email: email,
