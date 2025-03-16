@@ -1,8 +1,8 @@
-import { genSalt, hash } from 'bcrypt';
 import { Request } from 'express';
 import { sign } from 'jsonwebtoken';
 import { ParamsError } from '../errors';
 import User from '../models/user';
+import { hashed } from '../utils/hashed-password';
 import { verify } from '../utils/verify';
 import { HttpResponse } from './../protocols/http';
 
@@ -19,11 +19,10 @@ class SignUpController {
       const isValid = verify(name, password, email);
 
     if(!isValid) {
-      throw new ParamsError()
+      throw new Error("Invalid Params");
     }
 
-    const salt  = await genSalt(10);
-    const hashedPassword = await hash(password, salt);    
+    const hashedPassword = hashed(password); 
     
     const accessToken = sign({ email, name}, secret);
     
@@ -41,7 +40,7 @@ class SignUpController {
   }catch (error) {
     return {
       status: 500,
-      body: { message: "Internal Server error", error}
+      body: { message: error}
     }
   }
 }
