@@ -97,7 +97,7 @@ describe("SignUpController", () => {
     const actual = await sut.handle(req);
     // Assert
 
-    expect(actual.status).toBe(500);
+     expect(actual.status).toBe(500);
     // and elements
   });
 

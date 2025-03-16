@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
+import { NotFoundError, UnauthorizedError, } from '../errors';
 import User from '../models/user';
 import { HttpResponse } from '../protocols/http';
 export class SignInController {
@@ -11,26 +12,27 @@ export class SignInController {
     
     try {
       
-      const { username, password } = req.body;
+      const { name, password } = req.body;
       // Validate request body
-      if (!username || !password) {
+      if (!name || !password) {
         return {
           status: 400,
-          body: { message: 'Username and password are required' }
+          body: { message: 'name and password are required' }
         }
       }
-        const user = await User.findOne({ where: { username } });
+        const user = await User.findOne({ where: { name } });
         if (!user) {
-          throw new Error('User not found');
+          // throw new Error('User not found');
+          throw new NotFoundError()
         }
   
         // Compare the provided password with the hashed password in the database
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-          throw new Error('Invalid credentials');
+          throw new UnauthorizedError("Invalid Credentials")
         }
         // Generate a JWT token
-        const token = jwt.sign({ userId: user.id, username: user.name }, this.secretKey, {
+        const token = jwt.sign({ userId: user.id, name: user.name }, this.secretKey, {
           expiresIn: '1h', // Token expires in 1 hour
         });
   
@@ -43,10 +45,7 @@ export class SignInController {
           }
         };      
     } catch (error) {
-        return {
-          status: 500,
-          body: { message: error}
-        }
+        throw error
     }
   };
 }
