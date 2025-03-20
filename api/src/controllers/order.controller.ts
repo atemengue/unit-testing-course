@@ -32,13 +32,21 @@ async function createOrder(req: Request, res: Response) {
 
 async function getOrder(req: Request, res: Response) {
   const id = req.params.id;
-  const order = await Order.findById(id)
-  if (!order) {
-    throw new NotFoundError(`No orders found`);
+  
+  try {
+    const order = await Order.findById(id);
+    if (!order) {
+      throw new NotFoundError()
+    }
+    res.status(200).send(order);
+    
+  } catch (error) {
+    res.status(500).send({
+      message: "Server Error"
+    })
   }
-  res.status(500).send({
-    message: "Server Error"
-  })
+
+
 }
 
 

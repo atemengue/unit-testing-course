@@ -1,6 +1,7 @@
 import { Mongoose } from 'mongoose';
 import Category from '../src/models/category'; // Adjust the path as needed
 import Product from '../src/models/product'; // Adjust the path as needed
+import { OrderStatus } from '../src/types';
 
 export class SeedData {
   /**
@@ -17,7 +18,7 @@ export class SeedData {
     await Category.create({ name: 'Books', description: '', imageUrl: '' });
 
     // Seed products
-    await Product.create({
+    const product = await Product.create({
       name: 'Latte',
       description: 'description',
       imageUrl: 'url-image',
@@ -25,6 +26,8 @@ export class SeedData {
       price: 150,
       categoryId: category1.id,
     });
+
+
 
     console.log('Database seeded successfully!');
   }

@@ -3,8 +3,11 @@ import mongoose from 'mongoose';
 import { afterAll, beforeAll } from 'vitest';
 import Category from '../../src/models/category'; // Adjust the path as needed
 import Inventory from '../../src/models/inventory';
+import Order from '../../src/models/order';
 import Product from '../../src/models/product'; // Adjust the path as needed
 import User from '../../src/models/user';
+import { OrderStatus } from '../../src/types';
+
 
 
 let mongod: MongoMemoryServer;
@@ -37,11 +40,22 @@ const seedDatabase = async () => {
     productId: product.id
   })
 
-  await User.create({
+  const user = await User.create({
     name: 'regis',
     email: 'regis@test.com',
     password: '12345678'
   })
+
+  await Order.create({
+    _id: '67dbb5f670d04d702c94a999',
+    userId: user?.id,
+    status: OrderStatus.Created,
+    productId: product?.id, // Make sure this matches what your controller expects
+    shippingAddress: 'Yaounde 237',
+    quantity: 100,
+    orderDate: new Date()
+    })
+  
 
   // console.log('Database seeded successfully!');
 };

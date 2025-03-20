@@ -19,6 +19,7 @@ describe("Create Order", () => {
     // Arrange
     const user = await User.findOne({});
     const product = await ProductModel.findOne({});
+    const order = await OrderModel.findOne({});
 
     const initialInventory = await Inventory.findOne({ productId: product?.id });
     expect(initialInventory).not.toBeNull();

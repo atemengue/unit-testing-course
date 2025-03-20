@@ -6,3 +6,7 @@ const router: Router = Router();
 router.post('/api/order', controllerOrder.createOrder);
 router.get('/api/order/:id', controllerOrder.getOrder);
 
+const orderRoutes = router;
+export default orderRoutes;
+
+

@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './routes/auth.routes';
 import categoryRoutes from './routes/category.routes';
+import orderRoutes from './routes/order.routes';
 import productRoutes from './routes/product.routes';
 import bodyParser = require('body-parser');
 
@@ -31,6 +32,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use(categoryRoutes);
 app.use(productRoutes);
 app.use(authRoutes);
+app.use(orderRoutes)
 
 app.listen(port, () => {
   console.log(`[Server]: Server is running at http://localhost:${port}`);

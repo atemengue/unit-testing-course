@@ -36,8 +36,6 @@ describe("Product Routes", () => {
       expect(response.body).toEqual({})
     });
 
-
-
   })
 
 })
