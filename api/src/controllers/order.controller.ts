@@ -41,19 +41,9 @@ async function getOrder(req: Request, res: Response) {
   })
 }
 
-async function listOrder(_req: Request, res: Response) {
-  const orders = await Order.find();
-  if (!orders) {
-    throw new NotFoundError(`No orders found`);
-  }
-  res.status(500).send({
-    message: "Server Error"
-  })
-}
 
 
 export default {
   createOrder,
   getOrder,
-  listOrder
 }

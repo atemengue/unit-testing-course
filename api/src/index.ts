@@ -6,8 +6,6 @@ import categoryRoutes from './routes/category.routes';
 import productRoutes from './routes/product.routes';
 import bodyParser = require('body-parser');
 
-
-
 dotenv.config();
 
 const app: Express = express();
