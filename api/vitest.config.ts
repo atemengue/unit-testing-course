@@ -15,7 +15,6 @@ export default defineConfig({
       "node_modules",
       "dist",
     ],
-    include: ["**/*test*.ts", "**/*test*.js"],  // Match any file with "test" in the name
     testTimeout: 60000
   },
 });

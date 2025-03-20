@@ -11,6 +11,7 @@ import bodyParser = require('body-parser');
 dotenv.config();
 
 const app: Express = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT || 3000;
@@ -38,3 +39,5 @@ app.listen(port, () => {
 });
 
 start();
+
+export default app;

@@ -47,7 +47,7 @@ class ProductController {
   lists =  async (_req: Request, res: Response) => {
     try {
     const products = await this.productService.lists();
-    if (products.length === 0) {
+    if (products && products.length === 0) {
        res.status(204).send(products);
     } else {
       res.status(200).send(products);

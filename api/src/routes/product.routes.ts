@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import ProductController from '../controllers/product.controller';
-import InventoryService from '../services/inventory.service';
+import { InventoryService } from '../services/inventory.service';
 import ProductService from '../services/product.service';
 import { IInventoryService, IProductService } from '../types';
 

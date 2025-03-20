@@ -13,7 +13,6 @@ async function createOrder(req: Request, res: Response) {
 
     const availableQuantity = await inventoryService.checkInventory(productId);
 
-    console.log(availableQuantity, 'the avial')
     if ( availableQuantity?.quantity && availableQuantity?.quantity < quantity){
       res.status(400).send({ message: "stock Insuffisant"});
     } 
