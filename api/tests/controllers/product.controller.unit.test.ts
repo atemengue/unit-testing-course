@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import ProductController from '../../src/controllers/product.controller';
-import InventoryService from '../../src/services/inventory.service';
+import { InventoryService } from '../../src/services/inventory.service';
 import ProductService from '../../src/services/product.service';
 
 describe("Product Controller", () => {

@@ -5,11 +5,9 @@ import { IOrder, OrderStatus } from '../types';
 const OrderSchema: Schema = new Schema<IOrder>({
   userId: { type: Schema.Types.ObjectId, ref: "User"},
   status: {type: String , require: Object.values(OrderStatus) },
-  products: {
-    type: [Schema.Types.ObjectId], required: true, ref: 'Product'
-  },
+  productId: { type: Schema.Types.ObjectId, required: true, ref: 'Product'},
   shippingAddress: { type: String, required: true },
-  total: Number,
+  quantity: Number,
   orderDate: Date
 
 })

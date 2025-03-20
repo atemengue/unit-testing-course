@@ -3,7 +3,9 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { afterAll, beforeAll } from 'vitest';
 import Category from '../../src/models/category'; // Adjust the path as needed
+import Inventory from '../../src/models/inventory';
 import Product from '../../src/models/product'; // Adjust the path as needed
+import User from '../../src/models/user';
 
 
 let mongod: MongoMemoryServer;
@@ -15,20 +17,32 @@ const seedDatabase = async () => {
   // Clear existing data
   await Category.deleteMany({});
   await Product.deleteMany({});
+  await User.deleteMany();
 
   // Seed categories
   const category1 = await Category.create({ name: 'Electronics', description: '', imageUrl: '' });
   await Category.create({ name: 'Books', description: '', imageUrl: '' });
 
   // Seed products
-  await Product.create({
+  const product = await Product.create({
     name: 'Latte',
     description: 'description',
     imageUrl: 'url-image',
-    stock: 15,
-    price: 150,
+    stock: 150,
+    price: 1500,
     categoryId: category1.id,
   });
+
+  await Inventory.create({
+    quantity: product.stock,
+    productId: product.id
+  })
+
+  await User.create({
+    name: 'regis',
+    email: 'regis@test.com',
+    password: '12345678'
+  })
 
   // console.log('Database seeded successfully!');
 };

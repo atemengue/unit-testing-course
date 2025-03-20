@@ -114,7 +114,6 @@ describe("SignInController", () => {
 
         // Act
         const actual = await sut.handle(req);
-        console.log(actual);
         // Assert 
         expect(actual.status).toBe(200);
         expect(actual.body.token).toBe(token);

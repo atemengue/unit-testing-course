@@ -34,12 +34,12 @@ export interface IUser extends Document {
   password: string;
 }
 
-export interface IOrder extends Document {
+export interface IOrder {
   userId: Types.ObjectId;
   status: string;
-  products: IProduct[]
+  productId: IProduct
   shippingAddress: string;
-  total: number;
+  quantity: number;
   orderDate: Date;
 }
 

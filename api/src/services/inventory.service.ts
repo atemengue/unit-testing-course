@@ -14,9 +14,11 @@ export interface IResult {
   message: string
 }
 
-class InventoryService  implements IInventoryService {
+export class InventoryService  implements IInventoryService {
 
-  constructor(){}
+  constructor(){
+    
+  }
 
   async checkInventory(id: string): Promise<CheckInterface> { 
     try {
@@ -55,7 +57,7 @@ class InventoryService  implements IInventoryService {
     const filter = { productId: id };
     try {
        await Inventory.findOneAndUpdate(
-        filter, { $inc: { quantity:-quantity }}, { new: true }
+        filter, { $inc: { quantity: -quantity }}, { new: true }
       )
       return {
         message: "Inventory Updated!",
@@ -68,4 +70,3 @@ class InventoryService  implements IInventoryService {
   }
 }
 
-export default InventoryService;

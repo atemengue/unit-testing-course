@@ -4,6 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
+    "unit:test": "vitest run \"**/*.unit.test.ts\"",
+    "integration:test": "vitest run --testNamePattern='.integration.test.(ts|js)'",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "build": "npx tsc",
@@ -25,7 +27,8 @@
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongodb-memory-server": "^10.1.4",
-    "mongoose": "^8.12.1"
+    "mongoose": "^8.12.1",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

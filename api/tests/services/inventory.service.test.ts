@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import Inventory from '../../src/models/inventory';
-import InventoryService from '../../src/services/inventory.service';
+import { InventoryService } from '../../src/services/inventory.service';
 
 vi.mock("../../src/models/inventory.ts", () => {
   return {
