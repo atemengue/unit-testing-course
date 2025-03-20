@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
+import { L } from 'vitest/dist/chunks/reporters.66aFHiyX';
 import { NotFoundError, UnauthorizedError, } from '../errors';
 import User from '../models/user';
 import { HttpResponse } from '../protocols/http';
@@ -9,10 +10,9 @@ export class SignInController {
   private secretKey: string = process.env.JWT || "1234";
   
   handle = async (req: Request): Promise<HttpResponse> => {
-    
-    try {
       
       const { name, password } = req.body;
+
       // Validate request body
       if (!name || !password) {
         return {
@@ -20,7 +20,8 @@ export class SignInController {
           body: { message: 'name and password are required' }
         }
       }
-        const user = await User.findOne({ where: { name } });
+        const user = await User.findOne({ name: name });
+        
         if (!user) {
           // throw new Error('User not found');
           throw new NotFoundError()
@@ -44,9 +45,6 @@ export class SignInController {
             token,
           }
         };      
-    } catch (error) {
-        throw error
-    }
   };
 }
 

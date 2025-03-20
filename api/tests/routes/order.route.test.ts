@@ -24,7 +24,6 @@ describe("Order Routes", () => {
       // Act
       const response = await request(app).get(`/api/order/${id}`);
 
-      console.log(response.body)
       // Assert
       expect(response.status).toBe(200);
       expect(response.body).toBeTruthy();
@@ -36,8 +35,6 @@ describe("Order Routes", () => {
      const id = '67dbb5f670d04d702c94a949';
      // Act
      const response = await request(app).get(`/api/order/${id}`);
-
-     console.log(response.body)
      // Assert
      expect(response.status).toBe(500);
     });

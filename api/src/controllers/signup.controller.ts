@@ -9,7 +9,6 @@ import { HttpResponse } from './../protocols/http';
 const secret = '1234';
 class SignUpController {
   async handle(req: Request): Promise<HttpResponse>{
-
     const name = req.body.name;
     const email = req.body.email
     const password = req.body.password;
@@ -17,12 +16,13 @@ class SignUpController {
     try {
     
       const isValid = verify(name, password, email);
-
+      
     if(!isValid) {
+      // Voir les elements des erreurs
       throw new Error("Invalid Params");
     }
 
-    const hashedPassword = hashed(password); 
+    const hashedPassword = await hashed(password); 
     
     const accessToken = sign({ email, name}, secret);
     
