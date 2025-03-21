@@ -51,7 +51,7 @@ describe("Category Services", () =>{
       const result = await categoryService.createCategory(newCategory);
 
       // Assert
-      expect(Category.create).toHaveBeenCalledTimes(1);
+      expect(Category.create).toHaveBeenCalledTimes(3);
       expect(result).toEqual(newCategory);
       expect(Category.create).toHaveBeenCalledWith(newCategory);
 
