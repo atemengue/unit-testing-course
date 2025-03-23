@@ -6,7 +6,7 @@ describe("Store class", () => {
   it("should add inventory", () => {
     // Arrange
     const store: Store = new Store();
-    store.addIventory(ProductType.Book, 10);
+    store.addInventory(ProductType.Book, 10);
     var customer: Customer = new Customer();
     
     // Act
@@ -21,7 +21,7 @@ describe("Store class", () => {
   it("should not add inventory if not enough stock", () => {
     // Arrange
     const store: Store = new Store();
-    store.addIventory(ProductType.Book, 10);
+    store.addInventory(ProductType.Book, 10);
     var customer: Customer = new Customer();
     
     // Act

@@ -9,7 +9,7 @@ export class Customer {
     if (store.getInventory(product) < quantity) {
       return false;
     }
-    store.addIventory(product, quantity);
+    store.addInventory(product, quantity);
     return true;
   }
 }
@@ -18,7 +18,7 @@ export class Store {
   
   private items = new Map<ProductType, number>();
 
-  addIventory(productType: ProductType, quantity: number) {
+  addInventory(productType: ProductType, quantity: number) {
     if (this.items.has(productType)) {
       this.items.set(productType, (this.items.get(productType) || 0) + quantity);
     } else {
@@ -26,7 +26,7 @@ export class Store {
     }
   }
 
-  getInventory(productType: ProductType) {
+  getInventory(productType: ProductType): number {
     return this.items.get(productType) || 0;
   }
 }
