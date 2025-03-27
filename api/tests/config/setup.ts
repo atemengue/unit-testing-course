@@ -24,6 +24,7 @@ const seedDatabase = async () => {
   // Seed categories
   const category1 = await Category.create({ name: 'Electronics', description: '', imageUrl: '' });
   await Category.create({ name: 'Books', description: '', imageUrl: '' });
+  await Category.create({ name: 'Coffee', description: '', imageUrl: '' });
 
   // Seed products
   const product = await Product.create({
