@@ -28,12 +28,9 @@ async function createAccount(username) {
 }
 
 export function fetchData() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const data = [1, 2, 3];
-      resolve(data);
-    })
-  })
+
+  return Promise.reject({ reason: 'Operation failed '});
+
 }
 
 
