@@ -13,6 +13,10 @@ class ProductService implements IProductService{
     return await Product.findById(id);
   }
 
+  async getByName(name: string): Promise<IProduct | null> {
+    return await Product.findOne({ name: name })
+  }
+  
   async lists() {
     return await Product.find().exec();
   }
