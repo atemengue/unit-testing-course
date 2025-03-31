@@ -1,23 +1,19 @@
+import { isValidUserName, users } from './isValid';
 
-async function isValidUserName(userName) {
-  // Placeholder for request checking if username is valid
-  if (!userName || !userName.includes('@')) {
-      return false;
-  }
-  else{
-      return true;
-  }
-}
 
-async function createAccount(username) {
-  if (!isValidUserName(username)) {
-      throw exception.InvalidUsernameError("Please enter a valid username")
+
+export async function createAccount(username) {
+
+  const isValid = await isValidUserName(username);
+  
+  if (isValid) {
+      throw new Error("Please enter a valid username")
   }
-  const userExists = await users.userExists(username);
+  const userExists =  users.includes(username);
   return new Promise((resolve, reject) => {
       if (!userExists) {
           resolve({data: {
-              "userId": users.createUserId(),
+              "userId": 1,
               "username": username,
           }}) 
       } else {
@@ -28,11 +24,20 @@ async function createAccount(username) {
 }
 
 export function fetchData() {
-
   return Promise.reject({ reason: 'Operation failed '});
-
 }
 
+// export function fetchData() {
+
+//   return Promise.reject({ reason: 'Operation failed '});
+
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       const data = [1, 2, 3];
+//       resolve(data);
+//     })
+//   })
+// }
 
 
 
