@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
-import { L } from 'vitest/dist/chunks/reporters.66aFHiyX';
 import { NotFoundError, UnauthorizedError, } from '../errors';
 import User from '../models/user';
 import { HttpResponse } from '../protocols/http';
