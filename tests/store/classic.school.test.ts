@@ -2,10 +2,6 @@ import { describe, expect, it, vi } from 'vitest';
 import { Customer, ProductType, Store } from '../../src/app/store/store';
 
 
-
-const test = vi.fn();
-
-
 describe("Store class", () => { 
 
   it("should add inventory", () => {
