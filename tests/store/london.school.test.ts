@@ -22,7 +22,7 @@ const StoreMock = {
 };
 
 
-describe.only("Store class", () => {
+describe("Store class", () => {
 
   it("should add purchase product when enough stock", () => {
 
