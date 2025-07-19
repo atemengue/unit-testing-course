@@ -19,16 +19,13 @@ vi.mock("../../src/models/user.ts",  async (importOriginal) => {
 });
 
 describe('Auth Routes', () => {
-  // TODO: Add tests for category routes
-
   beforeAll(() => {
-
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(authRoutes)
   });
 
-  describe.skip("SignUp Route", () => {
+  describe("SignUp Route", () => {
     it('should return 200 with token', async () => {
       const data = { 
           name: 'Regis Atemengue',
@@ -81,7 +78,7 @@ describe('Auth Routes', () => {
   describe("SignIn Route", () => {
 
 
-    it.todo('should return 200 with token', async () => {
+    it('should return 200 with token', async () => {
 
       const users = await User.find();
       const data = { 
@@ -94,7 +91,6 @@ describe('Auth Routes', () => {
       .send(data)
       .expect(200);
 
-      console.log(response.body);
       expect(response.body.token).toBeTruthy();
       expect(response.body.message).toMatch(/successful/i);
 

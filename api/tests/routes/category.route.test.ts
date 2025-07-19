@@ -1,7 +1,8 @@
+import bodyParser from 'body-parser';
 import express, { Express, Request, Response } from 'express';
 import { beforeEach } from 'node:test';
 import request from 'supertest';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import categoryRoutes from '../../src/routes/category.routes';
 import { setupTestEnvironment } from '../config/setup';
 
@@ -12,15 +13,17 @@ let app: Express = express();
 setupTestEnvironment();
 
 describe('Category Routes', () => {
-  // TODO: Add tests for category routes
 
-  beforeEach(() => {
+  beforeAll(() => {
+    
+    app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(categoryRoutes)
   })
 
-  it('should return 200 with a category', async () => {
+  it('should return 201 with a category', async () => {
     // Arrange
-    const categoy = {
+    const category = {
       name: 'test category',
       description: 'test description',
       imageUrl: 'http://test.com/image.jpg'
@@ -28,14 +31,13 @@ describe('Category Routes', () => {
 
     // Act
     const response = await request(app)
-      .post('/api/categories')
-      .send(categoy)
-      .expect(200);
+      .post('/api/category')
+      .send(category)
+      .expect(201);
 
     // Assert
-    expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('_id');
-    expect(response.body.name).toBe(categoy.name);
+    expect(response.body.name).toBe(category.name);
 
   })
 });

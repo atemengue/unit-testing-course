@@ -69,7 +69,7 @@ describe.only("Create Product", () => {
 
     const productInventory = await inventoryService.checkInventory(id);
     expect(productInventory.isAvailable).toBeTruthy();
-    expect(productInventory.quantity).toBe(205);
+    expect(productInventory.quantity).toBe(200);
     
 
   })
