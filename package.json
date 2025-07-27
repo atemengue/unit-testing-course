@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "vitest",
-    "unit:test": "vitest run \"**/*.unit.test.ts\"",
-    "integration:test": "vitest run --testNamePattern='.integration.test.(ts|js)'",
-    "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui",
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts"
