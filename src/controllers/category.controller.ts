@@ -1,3 +1,23 @@
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Category:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *         name:
+ *           type: string
+ *     CategoryInput:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *       required:
+ *         - name
+ */
+
 
 import { Request, Response } from 'express';
 import categoryService from '../services/category.service';

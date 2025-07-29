@@ -1,6 +1,9 @@
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 import authRoutes from './routes/auth.routes';
 import categoryRoutes from './routes/category.routes';
 import orderRoutes from './routes/order.routes';
@@ -10,6 +13,9 @@ import bodyParser = require('body-parser');
 dotenv.config();
 
 const app: Express = express();
+
+const swaggerDocument = YAML.load("./src/config/openapi.yaml");
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

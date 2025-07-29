@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { IInventory, IInventoryService, IProductService } from '../types';
-
 class ProductController {
 
   private readonly productService: IProductService;
