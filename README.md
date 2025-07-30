@@ -18,19 +18,15 @@
    npm install
    ```
 
-## Configuration
+## Docker
 
-1. Créez un fichier `.env` à la racine du projet et ajoutez les variables d'environnement nécessaires :
-   ```env
-   DB_PASSWORD="votre_mot_de_passe"
-   DB_URL="votre_url_atlas"
-   ```
+1. Créez la base de donnees Docker
 
 ## Démarrage
 
 1. Démarrez l'application :
    ```sh
-   npm run dev
+   docker-compose up -d
    ```
 
 2. L'application sera accessible à l'adresse suivante :

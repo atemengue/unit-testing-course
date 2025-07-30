@@ -2,11 +2,10 @@ import mongoose from 'mongoose';
 import Category from './models/category';
 
 const categories = [
-  { name: 'Electronics', description: 'Devices and gadgets' },
-  { name: 'Books', description: 'Printed and digital books' },
-  { name: 'Clothing', description: 'Apparel and accessories' },
-  { name: 'Home', description: 'Home appliances and furniture' },
-  { name: 'Sports', description: 'Sporting goods and equipment' },
+  { name: 'Arabica', description: 'Goût doux, faible en caféine, souvent fruité ou floral'},
+  { name: 'Robusta', description: 'Plus amer, plus corsé, plus de caféine, souvent utilisé dans l’espresso' },
+  { name: 'Liberica', description: 'Goût unique, boisé, moins courant' },
+  { name: 'Excelsa', description: 'Rare, saveur acidulée et complexe' },
 ];
 
 async function seed() {
