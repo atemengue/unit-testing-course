@@ -27,6 +27,8 @@
 1. Démarrez l'application :
    ```sh
    docker-compose up -d
+
+   docker exec -it my-mongo mongosh
    ```
 
 2. L'application sera accessible à l'adresse suivante :
