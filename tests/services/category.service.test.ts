@@ -11,8 +11,8 @@ vi.mock("../../src/models/category.ts", () => ({
 
 describe("Category Service", () => {
 
-  describe("listeCategories tests suites", () => {
-    it("doit me retourner une liste de categories de cafe", () => {
+  describe("listCategories tests suites", () => {
+    it("doit me retourner une liste de categories de cafe", async () => {
       // Arrange
       const categories: ICategory[]  = [{
         name: "Arabica",
@@ -26,13 +26,19 @@ describe("Category Service", () => {
       } as any)
 
       // Act
+      const actual = await listCategories();
 
       // Assert
+      expect(CategoryModel.find).toHaveBeenCalled();
+      expect(actual).toEqual(categories);
+      expect(CategoryModel.find).toHaveBeenCalledOnce();
+
+
     });
   });
 
 
-  describe("createCategories tests suites", () => {
+  describe("createCategory tests suites", () => {
     it.todo("doit creer une categorie de cafe")
   })
 
