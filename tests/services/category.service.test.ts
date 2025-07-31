@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import CategoryModel from '../../src/models/category';
 import { listCategories } from '../../src/services/category.service';
 import { ICategory } from '../../src/types';
 
@@ -18,6 +19,11 @@ describe("Category Service", () => {
         description: "goût doux, faible en caféine, souvent fruité ou floral",
         imageUrl: "http://url.com"
       }];
+
+      // creation de spy de find
+      vi.spyOn(CategoryModel, 'find').mockReturnValue({
+        exec: vi.fn().mockResolvedValue(categories)
+      } as any)
 
       // Act
 
