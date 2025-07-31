@@ -1,10 +1,28 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { listCategories } from '../../src/services/category.service';
+import { ICategory } from '../../src/types';
 
+vi.mock("../../src/models/category.ts", () => ({
+  default: {
+    find: vi.fn()
+  }
+}))
 
 describe("Category Service", () => {
 
   describe("listeCategories tests suites", () => {
-    it.todo("doit me retourner une liste de categories de cafe");
+    it("doit me retourner une liste de categories de cafe", () => {
+      // Arrange
+      const categories: ICategory[]  = [{
+        name: "Arabica",
+        description: "goût doux, faible en caféine, souvent fruité ou floral",
+        imageUrl: "http://url.com"
+      }];
+
+      // Act
+
+      // Assert
+    });
   });
 
 
