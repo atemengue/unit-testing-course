@@ -1,11 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
 import CategoryModel from '../../src/models/category';
-import { listCategories } from '../../src/services/category.service';
+import { createCategory, listCategories } from '../../src/services/category.service';
 import { ICategory } from '../../src/types';
 
 vi.mock("../../src/models/category.ts", () => ({
   default: {
-    find: vi.fn()
+    find: vi.fn(),
+    create: vi.fn(),
   }
 }))
 
@@ -39,7 +40,28 @@ describe("Category Service", () => {
 
 
   describe("createCategory tests suites", () => {
-    it.todo("doit creer une categorie de cafe")
+    it("doit creer une categorie de cafe", async () => {
+
+      // Arrange
+      let newCategory: ICategory =  {
+        name: 'Robusta',
+        description: 'Plus amer, plus corsé, plus de caféine, souvent utilisé dans l’espresso',
+        imageUrl: 'http://url.com'
+      };
+
+      vi.spyOn(CategoryModel, 'create').mockImplementation((category) => Promise.resolve(category) as any);
+
+      // Act
+
+      const result = await createCategory(newCategory);
+
+      // Assert
+      expect(CategoryModel.create).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(newCategory);
+      expect(CategoryModel.create).toHaveBeenCalledWith(newCategory);
+
+
+    })
   })
 
 })
