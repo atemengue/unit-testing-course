@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import CategoryModel from '../../src/models/category';
 import { createCategory, listCategories } from '../../src/services/category.service';
 import { ICategory } from '../../src/types';
@@ -13,6 +13,12 @@ vi.mock("../../src/models/category.ts", () => ({
 describe("Category Service", () => {
 
   describe("listCategories tests suites", () => {
+    
+    beforeAll(() => {
+      vi.resetAllMocks();
+    });
+
+
     it("doit me retourner une liste de categories de cafe", async () => {
       // Arrange
       const categories: ICategory[]  = [{
@@ -40,6 +46,9 @@ describe("Category Service", () => {
 
 
   describe("createCategory tests suites", () => {
+    beforeAll(() => {
+      vi.resetAllMocks();
+    });
     it("doit creer une categorie de cafe", async () => {
 
       // Arrange
