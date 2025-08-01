@@ -1,12 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import Inventory from '../../src/models/inventory';
 import { CheckInterface, InventoryService } from '../../src/services/inventory.service';
+import { IInventory } from '../../src/types';
 
 
 vi.mock("../../src/models/inventory.ts", () => {
   return {
     default: {
-      findOne: vi.fn()
+      findOne: vi.fn(),
+      create: vi.fn()
     }
   }
 } )
@@ -79,6 +81,25 @@ describe("Inventory Service", () => {
       await expect(sut.checkInventory(id)).rejects.toThrow(/reject/i)
 
     });
+
+  });
+
+  describe("createInventory Test Suites", () => {
+
+    it("doit retourner un objet avec isCreated = true et un message = inventory created", async () => {
+      const inventory : IInventory = {
+        productId: "1",
+        quantity: 10
+      } as any
+
+      (Inventory.create as any).mockResolvedValue(inventory);
+
+      const actual = await sut.createInventory(inventory);
+
+      expect(actual).toEqual({ isCreated: true, message: 'inventory created'});
+
+    });
+    it.todo("doit retourner un objet avec isCreated = false et un message d'erreur");
 
   })
 
