@@ -11,7 +11,8 @@ vi.mock("../../src/models/product.ts", () => {
     default: {
       create: vi.fn(),
       findById: vi.fn(),
-      findOne: vi.fn()
+      findOne: vi.fn(),
+      find: vi.fn()
     }
   }
 })
@@ -109,8 +110,40 @@ describe("Product Service", () => {
     });
   });
 
-  describe("lists Tests Suites", () => {
+  describe("lists Tests Suites", async () => {
     
+  it("doit me retourner une liste de produit(cafe)", async () => {
+    const listProducts = [
+      {
+        id: new Types.ObjectId(),
+        name: "Cafe Mixte Noir",
+        description: "Mixte Noir et du chocolat",
+        price: 1000,
+        stock: 5,
+        categoryId: new Types.ObjectId()
+      },
+      {
+        id: new Types.ObjectId(),
+        name: "Cappuccino",
+        description: "Cappuccino",
+        price: 2000,
+        stock: 8,
+        categoryId: new Types.ObjectId()
+      }
+    ];
+
+    (Product.find as any).mockReturnValue(({
+      exec: vi.fn().mockResolvedValue(listProducts)
+    }))
+
+    const actual = await sut.lists();
+
+    expect(Product.find).toHaveBeenCalledTimes(1);
+    expect(actual).toEqual(listProducts);
+    expect(actual.length).toBeGreaterThan(0);
+  })
+
+
   });
   
   describe("updateProduct Tests Suites", () => {
