@@ -9,7 +9,8 @@ import { IProduct } from '../../src/types';
 vi.mock("../../src/models/product.ts", () => {
   return {
     default: {
-      create: vi.fn()
+      create: vi.fn(),
+      findById: vi.fn()
     }
   }
 })
@@ -40,7 +41,7 @@ describe("Product Service", () => {
         categoryId: new Types.ObjectId()
       };
 
-      vi.spyOn(Product, 'create').mockImplementation((product) => Promise.resolve(newProduct) as  any);
+      vi.spyOn(Product, 'create').mockImplementation((product) => Promise.resolve(product) as  any);
 
       const actual = await sut.createProduct(newProduct);
 
@@ -53,8 +54,6 @@ describe("Product Service", () => {
       expect(actual).toHaveProperty('stock');
       expect(actual).toHaveProperty('categoryId');
       expect(actual).toHaveProperty('description');
-
-
     })
 
 
@@ -62,6 +61,28 @@ describe("Product Service", () => {
 
   describe("getById Tests Suites", () => {
     
+    it("doit me retourner un produit", async () => {
+
+      const id = "64c4b7c7d5e6f8b9a2d3e4f5";
+      const product = {
+        id: "64c4b7c7d5e6f8b9a2d3e4f5",
+        name: "Cafe Mixte",
+        description: "Mixte Noir et du chocolat",
+        price: 1000,
+        stock: 50,
+        categoryId: "64c4b7c7d5e6f8b9a2d3e493"
+      };
+
+      (Product.findById as any).mockResolvedValueOnce(product);
+
+      const actual = await sut.getById(id);
+
+      expect(actual).toEqual(product);
+      expect(Product.findById).toHaveBeenCalledTimes(1);
+      expect(Product.findById).toHaveBeenCalledWith(id);
+
+    })
+
   });
 
   describe("getByName Tests Suites", () => {
