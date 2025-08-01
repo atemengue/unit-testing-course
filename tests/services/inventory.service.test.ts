@@ -54,6 +54,8 @@ describe("Inventory Service", () => {
       const expected = {
           isAvailable: true,
           quantity:  10
+
+
         };
       // Mock FindOne
       (Inventory.findOne as any).mockResolvedValue(expected);
@@ -71,11 +73,9 @@ describe("Inventory Service", () => {
 
     })
     it("doit me retourner un message d'erreur", async () => {
-
       // Arrange
       const id = "1";
       (Inventory.findOne as any).mockRejectedValue("reject Promise");
-      // 
       await expect(sut.checkInventory(id)).rejects.toThrow(/reject/i)
 
     });
