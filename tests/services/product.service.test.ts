@@ -10,7 +10,8 @@ vi.mock("../../src/models/product.ts", () => {
   return {
     default: {
       create: vi.fn(),
-      findById: vi.fn()
+      findById: vi.fn(),
+      findOne: vi.fn()
     }
   }
 })
@@ -85,8 +86,27 @@ describe("Product Service", () => {
 
   });
 
-  describe("getByName Tests Suites", () => {
-    
+  describe("getByName Tests Suites", async () => {
+
+    it("doit retourner un produit par name", async () => {
+      const name = "expresso double"
+      const product = {
+        id: "64c4b7c7d5e6f8b9a2d3e4f5",
+        name: name,
+        description: "Double Expresso sans sucre",
+        price: 2000,
+        stock: 5,
+        categoryId: "64c4b7c7d5e6f8b9a2d3e493"
+      };
+
+      (Product.findOne as any).mockResolvedValueOnce(product);
+
+      const actual = await sut.getByName(name);
+
+      expect(actual).toEqual(product);
+      expect(Product.findOne).toHaveBeenCalledTimes(1);
+      expect(Product.findOne).toHaveBeenCalledWith({ name: name });
+    });
   });
 
   describe("lists Tests Suites", () => {
