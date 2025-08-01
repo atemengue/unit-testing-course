@@ -99,7 +99,22 @@ describe("Inventory Service", () => {
       expect(actual).toEqual({ isCreated: true, message: 'inventory created'});
 
     });
-    it.todo("doit retourner un objet avec isCreated = false et un message d'erreur");
+    it("doit retourner un objet avec isCreated = false et un message d'erreur", async () => {
+
+      const inventory : IInventory = {
+        productId: "1",
+        quantity: 10
+      } as any
+
+      (Inventory.create as any).mockResolvedValue(null);
+
+      const actual = await sut.createInventory(inventory);
+
+      expect(Inventory.create).toHaveBeenCalledWith(inventory);
+      expect(Inventory.create).toHaveBeenCalledTimes(1);
+      expect(actual.isCreated).toBeFalsy();
+      expect(actual.message).toBe("error");
+    });
 
   })
 
