@@ -2,7 +2,7 @@ import Inventory from '../models/inventory';
 import { IInventory, IInventoryService, IProduct } from '../types';
 
 export interface CheckInterface {
-  isAvailable?: boolean,
+  isAvailable?: boolean
   quantity?: number
   message?: string
 }
