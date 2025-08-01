@@ -12,7 +12,10 @@ vi.mock("../../src/models/product.ts", () => {
       create: vi.fn(),
       findById: vi.fn(),
       findOne: vi.fn(),
-      find: vi.fn()
+      find: vi.fn(),
+      findByIdAndUpdate: vi.fn(),
+      findByIdAndDelete: vi.fn(),
+
     }
   }
 })
@@ -87,7 +90,7 @@ describe("Product Service", () => {
 
   });
 
-  describe("getByName Tests Suites", async () => {
+  describe("getByName Tests Suites", () => {
 
     it("doit retourner un produit par name", async () => {
       const name = "expresso double"
@@ -110,7 +113,7 @@ describe("Product Service", () => {
     });
   });
 
-  describe("lists Tests Suites", async () => {
+  describe("lists Tests Suites", () => {
     
   it("doit me retourner une liste de produit(cafe)", async () => {
     const listProducts = [
@@ -148,10 +151,59 @@ describe("Product Service", () => {
   
   describe("updateProduct Tests Suites", () => {
     
+    it('doit mettre a jour un produit et renvoyer le produit', async () => {
+      // Arrange
+      const id = '67d3e8c4e2bd8833f0a1b609';
+      const updateData = {
+        name: 'Updated Product',
+        description: 'Updated Description',
+        price: 200,
+        stock: 100,
+      };
+      const updatedProduct = {
+        id,
+        ...updateData,
+      };
+
+      // Mock findByIdAndUpdate
+      (Product.findByIdAndUpdate as any).mockResolvedValueOnce(updatedProduct);
+
+      // Act
+      const result = await sut.updateProduct(id, updateData as any);
+
+      // Assert
+      expect(result).toEqual(updatedProduct);
+      expect(Product.findByIdAndUpdate).toHaveBeenCalledWith(id, updateData, { new: true });
+      expect(Product.findByIdAndUpdate).toHaveBeenCalledTimes(1);
+    });
+
   });
 
   describe("deleteProduct Tests Suites", () => {
-    
+    it('doit supprimer un produit', async () => {
+      // Arrange
+      const id = '67d3e8c4e2bd8833f0a1b609';
+      const deletedProduct = {
+        id,
+        name: 'Deleted Product',
+        description: 'Deleted Description',
+        price: 100,
+        stock: 50,
+        categoryId: '67d1820b3be3c2c03e1c626b',
+      };
+
+      // Mock findByIdAndDelete
+      (Product.findByIdAndDelete as any).mockResolvedValueOnce(deletedProduct);
+
+      // Act
+      const result = await sut.deleteProduct(id);
+
+      // Assert
+      expect(result).toEqual(deletedProduct);
+      expect(Product.findByIdAndDelete).toHaveBeenCalledWith(id);
+      expect(Product.findByIdAndDelete).toHaveBeenCalledTimes(1);
+    });
+
   });
 
 })
