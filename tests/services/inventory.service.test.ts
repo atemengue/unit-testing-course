@@ -8,7 +8,8 @@ vi.mock("../../src/models/inventory.ts", () => {
   return {
     default: {
       findOne: vi.fn(),
-      create: vi.fn()
+      create: vi.fn(),
+      findOneAndUpdate: vi.fn()
     }
   }
 } )
@@ -84,7 +85,7 @@ describe("Inventory Service", () => {
 
   });
 
-  describe("createInventory Test Suites", () => {
+  describe("createInventory Tests Suites", () => {
 
     it("doit retourner un objet avec isCreated = true et un message = inventory created", async () => {
       const inventory : IInventory = {
@@ -115,7 +116,44 @@ describe("Inventory Service", () => {
       expect(actual.isCreated).toBeFalsy();
       expect(actual.message).toBe("error");
     });
+  });
 
+  describe("updateInventory Tests Suites", () => {
+
+    it("doit me retourner un object avec message = Inventory Updated! et isUpdated = true", async () => {
+
+      const id = "1"
+      const quantity = 10
+      const filter = { productId: id };
+      
+
+      (Inventory.findOneAndUpdate as any).mockResolvedValue({});
+
+      const actual = await sut.updateInventory(id, quantity);
+
+      expect(Inventory.findOneAndUpdate).toHaveBeenCalledWith(
+        filter, { $inc: { quantity: -quantity }}, { new: true }
+      );
+
+      expect(actual).toEqual({
+        message: "Inventory Updated!",
+        isUpdated: true
+      })
+
+
+    });
+
+    it("doit capturer l'erreur si la MAJ echoue", async () => {
+
+      const id  = "1";
+      const quantity = 5;
+
+      (Inventory.findOneAndUpdate as any).mockRejectedValue("reject promise");
+      
+      // Act & Assert
+      await expect(sut.updateInventory(id, quantity)).rejects.toThrow(/reject/i);
+
+    })
   })
 
 })
