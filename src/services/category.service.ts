@@ -10,6 +10,6 @@ async function createCategory(category: ICategory):Promise<ICategory>{
   return await Category.create(category);
 }
 
-export {
+export default {
   createCategory, listCategories
 };

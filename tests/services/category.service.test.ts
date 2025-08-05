@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import CategoryModel from '../../src/models/category';
-import { createCategory, listCategories } from '../../src/services/category.service';
+import categoryService from '../../src/services/category.service';
 import { ICategory } from '../../src/types';
 
 vi.mock("../../src/models/category.ts", () => ({
@@ -33,7 +33,7 @@ describe("Category Service", () => {
       } as any)
 
       // Act
-      const actual = await listCategories();
+      const actual = await categoryService.listCategories();
 
       // Assert
       expect(CategoryModel.find).toHaveBeenCalled();
@@ -62,7 +62,7 @@ describe("Category Service", () => {
 
       // Act
 
-      const result = await createCategory(newCategory);
+      const result = await categoryService.createCategory(newCategory);
 
       // Assert
       expect(CategoryModel.create).toHaveBeenCalledTimes(1);

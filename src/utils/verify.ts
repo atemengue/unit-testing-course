@@ -14,8 +14,8 @@ function verifyEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
+
 function verify(name: string, password: string, email: string): boolean {
   return verifyName(name) && verifyPassword(password) && verifyEmail(email);
 }
-
 export { verify, verifyEmail, verifyName, verifyPassword };

@@ -25,13 +25,13 @@ class SignUpController {
     const hashedPassword = await hashed(password); 
     
     const accessToken = sign({ email, name}, secret);
+ 
     
     await User.create({
         email: email,
         name: name,
         password: hashedPassword
-    }) 
-
+    })
     return {
       status: 200,
       body: accessToken
