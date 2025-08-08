@@ -3,6 +3,7 @@ import { Request } from 'express';
 import JWT from 'jsonwebtoken';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import SignInController from '../../src/controllers/signin.controller';
+import { NotFoundError } from '../../src/errors';
 import User from '../../src/models/user';
 
 
@@ -92,7 +93,23 @@ describe("SignInController", () => {
 
     });
     // test case 03
-    it.todo("doit retourner user not found si le user n'existe pas");
+    it("doit retourner user not found si le user n'existe pas", async () => {
+
+    // Arrange
+      const name = "antoine-junoir";
+      const password = "testACV136#";
+      const dataReq = { name, password };
+      const req = {
+        body: dataReq
+      } as Request;
+
+      // mock findOne
+      (User.findOne as any).mockResolvedValue(false);
+
+      await expect(sut.handle(req)).rejects.toThrow(NotFoundError);
+
+
+    });
     // test case 04
     it.todo("doit retourner Invalid Credentials")
 
