@@ -40,7 +40,7 @@ class SignUpController {
   }catch (error) {
     return {
       status: 500,
-      body: { message: error}
+      body: error
     }
   }
 }

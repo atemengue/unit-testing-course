@@ -33,10 +33,6 @@ vi.mock(import("jsonwebtoken"), async (importOriginal) => {
   }
 })
 
-
-
-
-
 describe("SignUpController", () => {
 
   let sut: SignUpController;
@@ -107,11 +103,9 @@ describe("SignUpController", () => {
    // Act
    const actual =  await sut.handle(req);
 
-   console.log(actual);
-
    // Assert
     expect(actual.status).toBe(500);
-    expect(actual.body?.message).match(/Error/i);
+    expect(actual.body.message).toMatch(/Invalid/i);
 
   });
 
