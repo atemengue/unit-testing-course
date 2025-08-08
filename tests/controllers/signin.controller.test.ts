@@ -3,7 +3,7 @@ import { Request } from 'express';
 import JWT from 'jsonwebtoken';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import SignInController from '../../src/controllers/signin.controller';
-import { NotFoundError } from '../../src/errors';
+import { NotFoundError, UnauthorizedError } from '../../src/errors';
 import User from '../../src/models/user';
 
 
@@ -30,8 +30,6 @@ vi.mock(import('jsonwebtoken'), async (importOriginal) => {
     sign: vi.fn().mockReturnValue('access-token')
   }
 })
-
-
 
 describe("SignInController", () => {
 
@@ -111,7 +109,23 @@ describe("SignInController", () => {
 
     });
     // test case 04
-    it.todo("doit retourner Invalid Credentials")
+    it("doit retourner Invalid Credentials", async () => {
+      // Arrange
+      const name = "antoine-junoir";
+      const password = "testACV136#";
+      const dataReq = { name, password };
+      const req = {
+        body: dataReq
+      } as Request;
+
+      // Mock Methods
+      (User.findOne as any).mockResolvedValue(true);
+      vi.spyOn(bcrypt, 'compare').mockImplementation(() => false);
+
+      // Act
+      await expect(sut.handle(req)).rejects.toThrow(UnauthorizedError)
+
+    })
 
   })
 
