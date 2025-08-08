@@ -1,5 +1,34 @@
+import bcrypt from 'bcrypt';
+import JWT from 'jsonwebtoken';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import SignInController from '../../src/controllers/signin.controller';
+import User from '../../src/models/user';
+
+
+vi.mock('../../src/models/user.ts', () => {
+  return {
+    default: {
+      findOne: vi.fn()
+    }
+  }
+})
+
+vi.mock(import('bcrypt'), async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    compare: vi.fn()
+  }
+});
+
+vi.mock(import('jsonwebtoken'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    sign: vi.fn().mockReturnValue('access-token')
+  }
+})
+
 
 
 describe("SignInController", () => {
