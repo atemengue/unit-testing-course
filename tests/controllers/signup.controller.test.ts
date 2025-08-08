@@ -89,7 +89,31 @@ describe("SignUpController", () => {
   });
   
   // test case 2
-  it.todo("doit retourner une erreur si la creation d'un utilisateur echoue status 500");
+  it("doit retourner une erreur si la creation d'un utilisateur echoue status 500", async () => {
+
+       // Arrange
+    const name = "jamesjunoir";
+    const password = "ABC12345#@";
+    const email = "james@test.com";
+    const bodyData = { name, email, password}
+
+
+    const req = {
+      body: bodyData
+    } as Request  
+
+   vi.mocked(verify).mockReturnValue(false);
+
+   // Act
+   const actual =  await sut.handle(req);
+
+   console.log(actual);
+
+   // Assert
+    expect(actual.status).toBe(500);
+    expect(actual.body?.message).match(/Error/i);
+
+  });
 
 
 })
