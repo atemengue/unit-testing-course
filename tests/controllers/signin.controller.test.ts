@@ -75,7 +75,22 @@ describe("SignInController", () => {
 
     });
     // test case 02
-    it.todo("doit me retourner name et password required si les credentials sont incorrects");
+    it("doit me retourner name et password required si les credentials sont incorrects", async () => {
+
+      // Arrange
+      const name = "";
+      const password = "";
+
+      const req = {
+        body: {name , password}
+      } as Request;
+      // Act
+      const actual = await sut.handle(req);
+      // Assert
+      expect(actual.status).toBe(400);
+      expect(actual.body.message).toMatch(/required/i)
+
+    });
     // test case 03
     it.todo("doit retourner user not found si le user n'existe pas");
     // test case 04
