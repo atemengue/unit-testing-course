@@ -8,9 +8,9 @@
     "dev": "nodemon src/index.ts",
     "seed": "ts-node src/seed.ts",
     "test": "vitest",
-    "test:unit": "",
-    "test:integration": "",
-    "test:coverage": "vitest run --coverage"
+    "test:u": "vitest run tests/unit/",
+    "test:i": "vitest run tests/integration/",
+    "test:c": "vitest run --coverage"
   },
   "keywords": [],
   "author": "",
