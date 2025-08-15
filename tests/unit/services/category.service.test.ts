@@ -1,9 +1,9 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
-import CategoryModel from '../../src/models/category';
-import categoryService from '../../src/services/category.service';
-import { ICategory } from '../../src/types';
+import CategoryModel from '../../../src/models/category';
+import categoryService from '../../../src/services/category.service';
+import { ICategory } from '../../../src/types';
 
-vi.mock("../../src/models/category.ts", () => ({
+vi.mock("../../../src/models/category.ts", () => ({
   default: {
     find: vi.fn(),
     create: vi.fn(),

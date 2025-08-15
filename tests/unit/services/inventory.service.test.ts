@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import Inventory from '../../src/models/inventory';
-import { CheckInterface, InventoryService } from '../../src/services/inventory.service';
-import { IInventory } from '../../src/types';
+import Inventory from '../../../src/models/inventory';
+import { CheckInterface, InventoryService } from '../../../src/services/inventory.service';
+import { IInventory } from '../../../src/types';
 
 
-vi.mock("../../src/models/inventory.ts", () => {
+vi.mock("../../../src/models/inventory.ts", () => {
   return {
     default: {
       findOne: vi.fn(),

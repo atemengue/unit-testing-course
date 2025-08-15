@@ -8,6 +8,8 @@
     "dev": "nodemon src/index.ts",
     "seed": "ts-node src/seed.ts",
     "test": "vitest",
+    "test:unit": "",
+    "test:integration": "",
     "test:coverage": "vitest run --coverage"
   },
   "keywords": [],

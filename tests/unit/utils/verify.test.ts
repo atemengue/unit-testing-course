@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { L } from 'vitest/dist/chunks/reporters.d.BFLkQcL6';
-import { verify, verifyEmail, verifyName, verifyPassword } from '../../src/utils/verify';
+import { verify, verifyEmail, verifyName, verifyPassword } from '../../../src/utils/verify';
 describe("verifyName Test Suite", () => {
 
   it("doit me retourner false si la taille du name < 8", () => {

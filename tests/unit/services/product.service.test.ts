@@ -1,12 +1,12 @@
 import { Types } from 'mongoose';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import Product from '../../src/models/product';
-import ProductService from '../../src/services/product.service';
-import { IProduct } from '../../src/types';
+import Product from '../../../src/models/product';
+import ProductService from '../../../src/services/product.service';
+import { IProduct } from '../../../src/types';
 
 
 
-vi.mock("../../src/models/product.ts", () => {
+vi.mock("../../../src/models/product.ts", () => {
   return {
     default: {
       create: vi.fn(),

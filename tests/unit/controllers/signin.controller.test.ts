@@ -2,12 +2,12 @@ import bcrypt from 'bcrypt';
 import { Request } from 'express';
 import JWT from 'jsonwebtoken';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import SignInController from '../../src/controllers/signin.controller';
-import { NotFoundError, UnauthorizedError } from '../../src/errors';
-import User from '../../src/models/user';
+import SignInController from '../../../src/controllers/signin.controller';
+import { NotFoundError, UnauthorizedError } from '../../../src/errors';
+import User from '../../../src/models/user';
 
 
-vi.mock('../../src/models/user.ts', () => {
+vi.mock('../../../src/models/user.ts', () => {
   return {
     default: {
       findOne: vi.fn()

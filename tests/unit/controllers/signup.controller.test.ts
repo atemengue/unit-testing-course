@@ -1,24 +1,24 @@
 import { Request } from 'express';
 import JWT from 'jsonwebtoken';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import SignUpController from '../../src/controllers/signup.controller';
-import User from '../../src/models/user';
-import { hashed } from '../../src/utils/hashed-password';
-import { verify } from '../../src/utils/verify';
+import SignUpController from '../../../src/controllers/signup.controller';
+import User from '../../../src/models/user';
+import { hashed } from '../../../src/utils/hashed-password';
+import { verify } from '../../../src/utils/verify';
 
 
 
 
-vi.mock("../../src/models/user.ts", () => ({
+vi.mock("../../../src/models/user.ts", () => ({
   default: {
     create: vi.fn()
   }
 }));
 
-vi.mock("../../src/utils/hashed-password.ts");
+vi.mock("../../../src/utils/hashed-password.ts");
 
-vi.mock('../../src/utils/verify.ts', async () => {
-  const actual = await vi.importActual<typeof import('../../src/utils/verify')>('../../src/utils/verify.ts')
+vi.mock('../../../src/utils/verify.ts', async () => {
+  const actual = await vi.importActual<typeof import('../../../src/utils/verify')>('../../../src/utils/verify.ts')
   return {
     ...actual,
     verify: vi.fn()
