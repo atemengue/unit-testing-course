@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
-import { describe, expect, it, vi } from 'vitest';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import mongoose from 'mongoose';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import orderController from '../../src/controllers/order.controller';
 import Inventory from '../../src/models/inventory';
 import Order from '../../src/models/order';
@@ -8,8 +10,26 @@ import User from '../../src/models/user';
 import { IOrder, OrderStatus } from '../../src/types';
 
 
+const setupTestDB = async () => {
+
+  const mongodb : MongoMemoryServer = await MongoMemoryServer.create();
+  const uri = mongodb.getUri();
+
+  console.log(uri);
+
+  await mongoose.connect(uri);
+  console.log("Memory Database Set")
+
+}
+
+beforeAll(() => {
+  setupTestDB();
+})
+
 
 describe("OrderController Tests Suites", () => {
+
+
 
   describe("CreateOrder Tests Suites", () => {
 
@@ -18,6 +38,9 @@ describe("OrderController Tests Suites", () => {
       // Arrange
       const user = await User.findOne();
       const product = await Product.findOne();
+
+      console.log(user ,'the user');
+      console.log(product, 'the product');
 
       const orderData : IOrder = {
         userId: user?.id,
