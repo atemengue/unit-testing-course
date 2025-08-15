@@ -3,33 +3,63 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import orderController from '../../src/controllers/order.controller';
+import Category from '../../src/models/category';
 import Inventory from '../../src/models/inventory';
 import Order from '../../src/models/order';
 import Product from '../../src/models/product';
 import User from '../../src/models/user';
 import { IOrder, OrderStatus } from '../../src/types';
 
+const seedDatabase = async () => {
+  
+    // nettoyage
+  await Category.deleteMany();
+  await Product.deleteMany();
+  await User.deleteMany();
+  await Order.deleteMany();
+
+  // seed data
+  await Category.create({ name: 'Coffee Chaud', description: "", imageUrl: "www.imageurl.test"});
+  const category = await Category.create({ name: 'Coffee Froid', description: "", imageUrl: "www.imageurl.test"});
+
+  const product = await Product.create({
+    name: 'ICE LATE',
+    description: "Ice late coffee froid",
+    imageUrl: "url-image",
+    stock: 5,
+    categoryId: category?.id
+  });
+
+  await Inventory.create({
+    quantity: product.stock,
+    productId: product?.id
+  });
+  
+  const user = await User.create({
+    name: 'herve',
+    email: "herve@email.com",
+    password: "12345678"
+  })
+}
 
 const setupTestDB = async () => {
 
   const mongodb : MongoMemoryServer = await MongoMemoryServer.create();
   const uri = mongodb.getUri();
 
-  console.log(uri);
-
   await mongoose.connect(uri);
-  console.log("Memory Database Set")
+
 
 }
 
-beforeAll(() => {
-  setupTestDB();
-})
 
 
 describe("OrderController Tests Suites", () => {
-
-
+  
+  beforeAll( async () => {
+    await setupTestDB();
+    await seedDatabase();
+  })
 
   describe("CreateOrder Tests Suites", () => {
 
@@ -38,7 +68,9 @@ describe("OrderController Tests Suites", () => {
       // Arrange
       const user = await User.findOne();
       const product = await Product.findOne();
+      const categories = await Category.find();
 
+      console.log(categories);
       console.log(user ,'the user');
       console.log(product, 'the product');
 
