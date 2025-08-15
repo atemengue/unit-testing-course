@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
+import { L } from 'vitest/dist/chunks/reporters.d.BFLkQcL6';
 import orderController from '../../src/controllers/order.controller';
 import Category from '../../src/models/category';
 import Inventory from '../../src/models/inventory';
@@ -9,6 +10,9 @@ import Order from '../../src/models/order';
 import Product from '../../src/models/product';
 import User from '../../src/models/user';
 import { IOrder, OrderStatus } from '../../src/types';
+
+
+let mongodb: MongoMemoryServer;
 
 const seedDatabase = async () => {
   
@@ -44,11 +48,26 @@ const seedDatabase = async () => {
 
 const setupTestDB = async () => {
 
-  const mongodb : MongoMemoryServer = await MongoMemoryServer.create();
+  mongodb = await MongoMemoryServer.create();
   const uri = mongodb.getUri();
 
   await mongoose.connect(uri);
 
+}
+
+const tearDownTestDB = async () => {
+  // 1 suppression des collections
+  const collections = await mongoose.connection?.db?.collections();
+  if (collections) {
+    for(let collection of collections) {
+      await collection.deleteMany({});
+    }
+  }
+  // 2. deconnexion instance
+    await mongoose.disconnect();
+
+  // 3. arret du serveur
+  await mongodb.stop()
 
 }
 
@@ -59,6 +78,10 @@ describe("OrderController Tests Suites", () => {
   beforeAll( async () => {
     await setupTestDB();
     await seedDatabase();
+  });
+
+  afterAll(async() => {
+    await tearDownTestDB();
   })
 
   describe("CreateOrder Tests Suites", () => {
