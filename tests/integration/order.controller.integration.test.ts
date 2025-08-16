@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
-import { L } from 'vitest/dist/chunks/reporters.d.BFLkQcL6';
 import orderController from '../../src/controllers/order.controller';
 import Category from '../../src/models/category';
 import Inventory from '../../src/models/inventory';
@@ -86,16 +85,11 @@ describe("OrderController Tests Suites", () => {
 
   describe("CreateOrder Tests Suites", () => {
 
-    it("doit creer une commande et retour le status 200 et la commande ", async () => {
+    it("doit creer une commande et mettre a jour l'inventaire et retourner le status 200 ", async () => {
 
       // Arrange
       const user = await User.findOne();
       const product = await Product.findOne();
-      const categories = await Category.find();
-
-      console.log(categories);
-      console.log(user ,'the user');
-      console.log(product, 'the product');
 
       const orderData : IOrder = {
         userId: user?.id,
@@ -103,7 +97,7 @@ describe("OrderController Tests Suites", () => {
         productId: product?.id,
         shippingAddress: "Yaounde Mendong",
         orderDate: new Date(),
-        quantity: 50
+        quantity: 3
       }
 
       const req =  {
@@ -117,10 +111,20 @@ describe("OrderController Tests Suites", () => {
 
 
       // Act
-      const actual = await orderController.createOrder(req, res)
-
+      await orderController.createOrder(req, res)
 
       // Assert
+      expect(res.status).toHaveBeenCalledWith(201);
+
+      // Assert sur les commandes(orders)
+      const orders =  await Order.find();
+      console.log(orders.length, 'nombres de commandes');
+      expect(orders.length).toBeGreaterThan(0);
+
+      // Assert sur l'inventaires
+      const inventoryData = await Inventory.findOne({ productId: product?.id });
+      expect(inventoryData).not.toBeNull();
+      expect(inventoryData?.quantity).toBe(2);
 
     });
 
