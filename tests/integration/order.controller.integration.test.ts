@@ -56,7 +56,6 @@ describe("OrderController Tests Suites", () => {
 
       // Assert sur les commandes(orders)
       const orders =  await Order.find();
-      console.log(orders.length, 'nombres de commandes');
       expect(orders.length).toBeGreaterThan(0);
 
       // Assert sur l'inventaires
