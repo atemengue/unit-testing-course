@@ -1,10 +1,18 @@
-import express from 'express';
+import express, { Express } from 'express';
 import request from 'supertest';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
+import authRoutes from '../../../src/routes/auth.routes';
+import bodyParser = require('body-parser');
 
+const app : Express = express();
 
 describe("Auth Routes",  () => {
 
+  beforeAll(() => {
+    app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(authRoutes);
+  })
 
   describe("SignUp Tests Suites", () => {
 
