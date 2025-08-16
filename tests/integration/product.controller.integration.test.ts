@@ -58,10 +58,32 @@ describe("Product Controller Integration Tests Suites", () => {
 
 
       // Act
-      await sut.create(req, res)
+      await sut.create(req, res);
 
 
       // Assert
+      expect(res.status).toHaveBeenCalledWith(201);
+
+
+      // Assert sur le product
+      const newProduct = await productService.getByName("Cafe au Chocolat Chaud");
+      const products = await productService.lists();
+
+      expect(produtData.name).toBe(newProduct?.name);
+      expect(produtData.price).toBe(newProduct?.price);
+      expect(products.length).toBe(2);
+
+      // Assert sur inventory
+      const id  = newProduct?.id as unknown as string;
+
+      const stock = await inventoryService.checkInventory(id);
+
+      expect(stock.isAvailable).toBeTruthy();
+      expect(stock.quantity).toBe(10);
+
+
+
+
 
     })
 
