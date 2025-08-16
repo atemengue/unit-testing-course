@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { seedDatabase, setupTestDB, tearDownTestDB } from '../../src/config/setup';
 import ProductController from '../../src/controllers/product.controller';
@@ -46,8 +47,18 @@ describe("Product Controller Integration Tests Suites", () => {
         categoryId: coffeChaudCategory?.id
       }
 
+      const req = {
+        body: produtData
+      } as Request;
+
+      const res = {
+        status: vi.fn().mockReturnThis(),
+        send: vi.fn()
+      } as unknown as Response;
+
 
       // Act
+      await sut.create(req, res)
 
 
       // Assert
