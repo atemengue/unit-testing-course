@@ -45,8 +45,6 @@ async function getOrder(req: Request, res: Response) {
       message: "Server Error"
     })
   }
-
-
 }
 
 
