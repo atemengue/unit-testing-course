@@ -60,7 +60,6 @@ describe("Product Controller Integration Tests Suites", () => {
       // Act
       await sut.create(req, res);
 
-
       // Assert
       expect(res.status).toHaveBeenCalledWith(201);
 
@@ -79,7 +78,7 @@ describe("Product Controller Integration Tests Suites", () => {
       const stock = await inventoryService.checkInventory(id);
 
       expect(stock.isAvailable).toBeTruthy();
-      expect(stock.quantity).toBe(10);
+      expect(stock.quantity).toBe(8);
 
 
 

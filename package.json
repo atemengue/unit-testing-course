@@ -10,6 +10,7 @@
     "test": "vitest",
     "test:u": "vitest run tests/unit/",
     "test:i": "vitest run tests/integration/",
+    "test:i-routes": "vitest run tests/integration/routes",
     "test:c": "vitest run --coverage"
   },
   "keywords": [],
@@ -19,7 +20,7 @@
   "dependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
-    "@types/supertest": "^6.0.2",
+    "@types/supertest": "^6.0.3",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "@types/yamljs": "^0.2.34",
@@ -32,7 +33,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb-memory-server": "^10.2.0",
     "mongoose": "^8.12.1",
-    "supertest": "^7.0.0",
+    "supertest": "^7.1.4",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
