@@ -19,7 +19,7 @@ class SignUpController {
       
     if(!isValid) {
       // Voir les elements des erreurs
-      throw new Error("Invalid Params");
+      throw new ParamsError("Invalid Params");
     }
 
     const hashedPassword = await hashed(password); 
@@ -31,7 +31,8 @@ class SignUpController {
         email: email,
         name: name,
         password: hashedPassword
-    })
+    });
+
     return {
       status: 200,
       body: accessToken
