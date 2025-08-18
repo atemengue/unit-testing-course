@@ -61,7 +61,7 @@ describe("Auth Routes",  () => {
    
 
     });
-    it("doit retourner status 500 request error", () => {
+    it("doit retourner status 500 request error", async () => {
 
           // Arrange
       const data = {
@@ -71,8 +71,14 @@ describe("Auth Routes",  () => {
       }
 
       // spyOn Create
+      vi.spyOn(User, 'create').mockRejectedValue(new Error("Error Creatinn user"));
 
-    })
+      // Act et Assert
+       await request(app)
+      .post('/api/signup')
+      .send(data).expect(500)
+    });
+
 
   });
 
