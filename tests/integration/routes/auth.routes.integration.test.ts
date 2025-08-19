@@ -102,7 +102,20 @@ describe("Auth Routes",  () => {
 
       
     })
-    it.todo("doit me retourner status 400 et message`name and password are required`");
+    it("doit me retourner status 400 et message`name and password are required`", async () => {
+ // Arrange
+        const data = {
+        name: "",
+        password: "",
+      }
+        // Assert & Act
+     const response = await request(app).post("/api/signin")
+     .send(data);
+
+     expect(response.status).toBe(400);
+     expect(response.body.message).toMatch(/required/i);
+
+    })
     it.todo("doit me retourner status 404 et message`NotFoundError`");
     it.todo("doit me retourner status 401 et message`UnauthorizedError`");
     

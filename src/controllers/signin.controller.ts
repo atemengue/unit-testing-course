@@ -13,8 +13,6 @@ export class SignInController {
       
       const { name, password } = req.body;
 
-      console.log(req.body, 'the body')
-
       // Validate request body
       if (!name || !password) {
         return {
@@ -24,8 +22,6 @@ export class SignInController {
       }
         const user = await User.findOne({ name: name });
 
-        console.log(user);
-        
         if (!user) {
           // throw new Error('User not found');
           throw new NotFoundError()
