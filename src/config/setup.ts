@@ -5,6 +5,7 @@ import Inventory from '../../src/models/inventory';
 import Order from '../../src/models/order';
 import Product from '../../src/models/product';
 import User from '../../src/models/user';
+import { OrderStatus } from '../../src/types';
 
 
 let mongodb: MongoMemoryServer;
@@ -33,6 +34,23 @@ const seedDatabase = async () => {
     quantity: product.stock,
     productId: product?.id
   });
+
+
+  const user = await User.create({
+    name: 'regis',
+    email: 'regis@test.com',
+    password: '12345678'
+  })
+
+  await Order.create({
+    _id: '67dbb5f670d04d702c94a999',
+    userId: user?.id,
+    status: OrderStatus.Created,
+    productId: product?.id, 
+    shippingAddress: 'Yaounde 237',
+    quantity: 100,
+    orderDate: new Date()
+    })
 }
 
 const setupTestDB = async () => {

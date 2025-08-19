@@ -45,7 +45,7 @@ describe("Auth Routes",  () => {
 
     });
 
-    it.skip("doit retourner Invalid Params", async () => {
+    it("doit retourner Invalid Params", async () => {
 
       const data = {
         name: 'joe',
@@ -61,7 +61,7 @@ describe("Auth Routes",  () => {
    
 
     });
-    it.skip("doit retourner status 500 request error", async () => {
+    it("doit retourner status 500 request error", async () => {
 
           // Arrange
       const data = {
