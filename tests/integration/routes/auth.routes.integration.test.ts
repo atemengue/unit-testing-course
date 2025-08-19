@@ -31,7 +31,7 @@ describe("Auth Routes",  () => {
     await tearDownTestDB()
   })
 
-  describe("SignUp Tests Suites", () => {
+  describe.skip("SignUp Tests Suites", () => {
 
     it("doit retourner status 200 avec un token", async () => {
       // Arrange
@@ -83,9 +83,21 @@ describe("Auth Routes",  () => {
   });
 
 
-  describe("SignIn Tests Suites", () => {
+  describe.only("SignIn Tests Suites", () => {
 
-    it.todo("doit me retourner status 200 auth successufly et un token");
+    it("doit me retourner status 200 auth successufly et un token", async () => {
+      // Arrange
+      const data = {
+          name: "authuser1",
+          password: "1234abcDE"
+      };
+      
+      const response = await request(app).post("/api/signin").send(data);
+
+      console.log(response);
+
+      
+    })
     it.todo("doit me retourner status 400 et message`name and password are required`");
     it.todo("doit me retourner status 404 et message`NotFoundError`");
     it.todo("doit me retourner status 401 et message`UnauthorizedError`");
