@@ -83,9 +83,13 @@ describe("Auth Routes",  () => {
   });
 
 
-  // describe("SignIn Tests Suites", () => {
+  describe("SignIn Tests Suites", () => {
 
+    it.todo("doit me retourner status 200 auth successufly et un token");
+    it.todo("doit me retourner status 400 et message`name and password are required`");
+    it.todo("doit me retourner status 404 et message`NotFoundError`");
+    it.todo("doit me retourner status 401 et message`UnauthorizedError`");
     
-  // })
+  })
 
 })
