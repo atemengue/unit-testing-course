@@ -31,7 +31,7 @@ describe("Auth Routes",  () => {
     await tearDownTestDB()
   })
 
-  describe.skip("SignUp Tests Suites", () => {
+  describe("SignUp Tests Suites", () => {
 
     it("doit retourner status 200 avec un token", async () => {
       // Arrange
@@ -45,7 +45,7 @@ describe("Auth Routes",  () => {
 
     });
 
-    it("doit retourner Invalid Params", async () => {
+    it.skip("doit retourner Invalid Params", async () => {
 
       const data = {
         name: 'joe',
@@ -61,7 +61,7 @@ describe("Auth Routes",  () => {
    
 
     });
-    it("doit retourner status 500 request error", async () => {
+    it.skip("doit retourner status 500 request error", async () => {
 
           // Arrange
       const data = {
@@ -78,23 +78,27 @@ describe("Auth Routes",  () => {
       .post('/api/signup')
       .send(data).expect(500)
     });
-
-
   });
 
 
-  describe.only("SignIn Tests Suites", () => {
+  describe("SignIn Tests Suites", () => {
 
     it("doit me retourner status 200 auth successufly et un token", async () => {
-      // Arrange
-      const data = {
-          name: "authuser1",
-          password: "1234abcDE"
-      };
-      
-      const response = await request(app).post("/api/signin").send(data);
 
-      console.log(response);
+      // Arrange
+        const data = {
+        name: "Noah Junoir",
+        password: "1245AFCeft@",
+      }
+
+      // Assert & Act
+     const response = await request(app).post("/api/signin")
+     .send(data)
+     .expect(200)
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).toHaveProperty("token");
+    expect(response.body.message).toMatch(/successful/i);
 
       
     })

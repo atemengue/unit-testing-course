@@ -33,18 +33,6 @@ const seedDatabase = async () => {
     quantity: product.stock,
     productId: product?.id
   });
-  
-  const user = await User.create({
-    name: 'herve',
-    email: "herve@email.com",
-    password: "12345678"
-  });
-
-  const user1 = await User.create({
-    name: "authuser1",
-    email: "authuser@email.com",
-    password: "1234abcDE"
-  })
 }
 
 const setupTestDB = async () => {
