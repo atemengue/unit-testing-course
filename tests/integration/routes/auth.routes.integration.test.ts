@@ -133,7 +133,24 @@ describe("Auth Routes",  () => {
 
 
     });
-    it.todo("doit me retourner status 401 et message`UnauthorizedError`");
+    it("doit me retourner status 401 et message`UnauthorizedError`", async () => {
+
+         // Arrange
+        const data = {
+        name: "Noah Junoir",
+        password: "12345678",
+      }
+
+          // Assert & Act
+        const response = await request(app).post("/api/signin")
+        .send(data)
+
+
+      expect(response.body.error.status).toBe(401);
+      expect(response.body.error.name).toMatch(/UnauthorizedError/i);
+
+
+    });
     
   })
 
