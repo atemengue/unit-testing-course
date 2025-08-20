@@ -11,6 +11,7 @@
     "test:u": "vitest run tests/unit/",
     "test:i": "vitest run tests/integration/",
     "test:i-routes": "vitest run tests/integration/routes",
+    "test:e2e": "vitest run tests/e2e",
     "test:c": "vitest run --coverage"
   },
   "keywords": [],
