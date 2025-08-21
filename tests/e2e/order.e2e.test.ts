@@ -6,6 +6,7 @@ import UserModel from '../../src/models/user';
 import categoryRoutes from '../../src/routes/category.routes';
 import orderRoutes from '../../src/routes/order.routes';
 import productRoutes from '../../src/routes/product.routes';
+import { InventoryService } from '../../src/services/inventory.service';
 import { IOrder, IProduct, OrderStatus } from '../../src/types';
 import bodyParser = require('body-parser');
 
@@ -14,7 +15,11 @@ let app: Express = express();
 
 describe("e2e order test suite", () => {
 
+  let inventoryService: InventoryService;
+
   beforeAll(async() => {
+
+    inventoryService = new InventoryService();
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -62,6 +67,20 @@ describe("e2e order test suite", () => {
       productId: coffee,
      } as unknown as IOrder
 
+    
+     const createOrderResponse = await request(app).post('/api/order').send(order);
+
+     expect(createOrderResponse.status).toBe(201);
+     expect(createOrderResponse.body.status).toBe('created');
+
+     const id = createOrderResponse.body.productId;
+
+     // check inventory;
+     const product = inventoryService.checkInventory(id);
+
+
+
+     
 
 
     })
