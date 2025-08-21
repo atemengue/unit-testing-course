@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { seedDatabase, setupTestDB, tearDownTestDB } from '../../src/config/setup';
+import UserModel from '../../src/models/user';
 import categoryRoutes from '../../src/routes/category.routes';
 import orderRoutes from '../../src/routes/order.routes';
 import productRoutes from '../../src/routes/product.routes';
@@ -32,8 +33,10 @@ describe("e2e order test suite", () => {
   })
 
 
-  describe("En tant que utilisateur lorsque je passe une commande de 02 cafés sur 100", () => {
+  describe("En tant que utilisateur un nouvel lorsque je passe une commande de 02 cafés sur 100", () => {
     it("le status de la réponse = 201, le stock restant = 98 et la commande doit etre save dans la DB", async () => {
+
+    const user = await UserModel.findOne({ name: 'regis '});
 
     const response = await request(app).get('/api/categories');
     const category = response.body[1];
@@ -49,16 +52,15 @@ describe("e2e order test suite", () => {
 
      const createCoffeeResponse = await request(app).post("/api/product").send(coffee);
 
-
      // order
-     const order: IOrder =  {
-      userId: "",
+     const order =  {
+      userId: user?.id,
       status: OrderStatus.Created,
       quantity: 2,
       shippingAddress: "yaounde",
       orderDate: new Date(),
       productId: coffee,
-     }
+     } as unknown as IOrder
 
 
 
