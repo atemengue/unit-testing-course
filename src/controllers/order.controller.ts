@@ -42,7 +42,6 @@ async function getOrder(req: Request, res: Response) {
     res.status(200).send(order);
     
   } catch (error) {
-    console.log(error);
     res.status(500).send({
       message: "Server Error"
     })

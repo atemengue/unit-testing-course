@@ -76,7 +76,7 @@ describe("SignUpController", () => {
 
     // Assert
     expect(actual.status).toBe(200);
-    expect(actual.body).toBe("access-token");
+    expect(actual.body.token).toBe("access-token");
     expect(User.create).toHaveBeenCalledTimes(1);
     expect(verify).toHaveBeenCalledTimes(1);
     expect(verify).toHaveBeenCalledWith(name, password, email)
