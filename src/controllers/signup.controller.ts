@@ -26,7 +26,6 @@ class SignUpController {
     
     const accessToken = sign({ email, name}, secret);
  
-    
     await User.create({
         email: email,
         name: name,
@@ -35,7 +34,7 @@ class SignUpController {
 
     return {
       status: 200,
-      body: accessToken
+      body: {token: accessToken}
     }
 
   }catch (error) {
