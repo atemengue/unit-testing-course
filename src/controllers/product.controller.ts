@@ -15,8 +15,6 @@ class ProductController {
 
     
     const data = req.body;
-    
-    console.log(data, 'DATA');
 
     
     try {

@@ -64,7 +64,7 @@ describe("e2e order test suite", () => {
       quantity: 2,
       shippingAddress: "yaounde",
       orderDate: new Date(),
-      productId: coffee,
+      productId: createCoffeeResponse.body?._id,
      } as unknown as IOrder
 
     
@@ -76,11 +76,11 @@ describe("e2e order test suite", () => {
      const id = createOrderResponse.body.productId;
 
      // check inventory;
-     const product = inventoryService.checkInventory(id);
+     const inventoryProduct = await inventoryService.checkInventory(id);
 
+     expect(inventoryProduct.isAvailable).toBeTruthy();
+     expect(inventoryProduct.quantity).toBe(98);
 
-
-     
 
 
     })

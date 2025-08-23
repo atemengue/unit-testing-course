@@ -5,6 +5,7 @@ import { InventoryService } from '../services/inventory.service';
 
 
 async function createOrder(req: Request, res: Response) {
+  
   const inventoryService = new InventoryService();
 
   try {
@@ -41,6 +42,7 @@ async function getOrder(req: Request, res: Response) {
     res.status(200).send(order);
     
   } catch (error) {
+    console.log(error);
     res.status(500).send({
       message: "Server Error"
     })
